@@ -60,22 +60,22 @@ export const otpSender = async (req, res) => {
 
 export const SignUp = async (req, res) => {
     try {
-        const { fullName, userName, email, password, confirmPasssword, gender, profilePicture, otp } = req.body
+        const { fullName, userName, email, password, confirmPassword, gender, profilePicture, otp } = req.body
 
-        if (!fullName || !userName || !email || !password || !confirmPasssword || !gender || !otp) {
+        if (!fullName || !userName || !email || !password || !confirmPassword || !gender || !otp) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
             })
         }
 
-        if (password.trim() !== confirmPasssword.trim()) {
+        if (password.trim() !== confirmPassword.trim()) {
             return res.status(400).json({
                 success: false,
                 message: "Password and Confirm Password do not match"
             })
         }
-        const emailExists = await User.findOne({ email: email })
+        const emailExists = await User.findOne({ email })
         if (emailExists) {
             return res.status(400).json({
                 success: false,
@@ -84,13 +84,14 @@ export const SignUp = async (req, res) => {
         }
 
         const findOtp = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1)
+        console.log('otp',findOtp)
 
         if (findOtp?.length === 0) {
             return res.status(400).json({
                 success: false,
                 message: 'Otp not found'
             })
-        } else if (findOtp[0].otp !== otp) {
+        } else if (findOtp.otp !== otp) {
             return res.status(400).json({
                 success: false,
                 message: 'Invalid otp'
@@ -109,6 +110,7 @@ export const SignUp = async (req, res) => {
             userName,
             password: hashedPassword,
             gender,
+            email,
             profilePicture: gender === 'Male' ? boyPic : girlPic
         })
 
