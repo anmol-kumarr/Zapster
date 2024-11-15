@@ -4,51 +4,67 @@ import bcrypt from "bcryptjs"
 import 'dotenv/config'
 import otpGenerator from 'otp-generator'
 import OTP from "../models/otp.model"
+import BlackList from "../models/blacklist.model"
 
 
-export const otpSender=async(req,res)=>{
-    try{
-        const {email}=req.body
-        if(!email){
+export const otpSender = async (req, res) => {
+    try {
+        const { email, userName } = req.body
+        if (!email, !userName) {
             return res.status(400).json({
-                success:false,
-                message:'Email is required'
+                success: false,
+                message: 'Fields are required'
             })
         }
-        const findUser=await User.findOne({email})
-        if(findUser){
+        const findName = await User.findOne({ userName })
+
+
+        if (findName) {
             return res.status(400).json({
-                success:false,
-                message:'Email already exists'
+                success: false,
+                message: 'User name already axist'
             })
         }
-        let otp=otpGenerator.generate(6,{upperCaseAlphabets:false,
-            specialChars:false,
-            lowerCaseAlphabets:false,
+
+
+        const findUser = await User.findOne({ email })
+
+
+
+        if (findUser?.length>0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Email already exists'
+            })
+        }
+        let otp = otpGenerator.generate(6, {
+            upperCaseAlphabets: false,
+            specialChars: false,
+            lowerCaseAlphabets: false,
 
         })
-        const payload={email,otp}
+        const payload = { email, otp }
 
-        const newOtp=await OTP.create(payload)
+        const newOtp = await OTP.create(payload)
 
         return res.status(200).json({
-            success:false,
-            message:'OTP sent successfully'
+            success: false,
+            message: 'OTP sent successfully'
         })
 
-    }catch(err){
+    } catch (err) {
         return res.status(500).json({
-            succes:false,
-            message:'Internal Server Error'
+            succes: false,
+            message: 'Internal Server Error'
         })
     }
 }
 
 export const SignUp = async (req, res) => {
     try {
-        const { fullName, userName, email, password, confirmPasssword, gender, profilePicture } = req.body
+        const { fullName, userName, email, password, confirmPasssword, gender, profilePicture, otp } = req.body
 
-        if (!fullName || !userName || !email || !password || !confirmPasssword || !gender) {
+        if (!fullName || !userName || !email || !password || !confirmPasssword || !gender || !otp) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
@@ -61,13 +77,6 @@ export const SignUp = async (req, res) => {
                 message: "Password and Confirm Password do not match"
             })
         }
-        const userNameExists = await User.findOne({ userName: userName })
-        if (userNameExists) {
-            return res.status(400).json({
-                success: false,
-                message: "Username already exists"
-            })
-        }
         const emailExists = await User.findOne({ email: email })
         if (emailExists) {
             return res.status(400).json({
@@ -75,6 +84,23 @@ export const SignUp = async (req, res) => {
                 message: "Email already exists"
             })
         }
+
+        const findOtp = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1)
+
+        if (findOtp?.length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Otp not found'
+            })
+        } else if (findOtp[0].otp !== otp) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid otp'
+            })
+        }
+
+
+
         const boyPic = `https://avatar.iran.liara.run/public/boy?username=${userName}`
         const girlPic = `https://avatar.iran.liara.run/public/girl?username=${userName}`
 
@@ -88,7 +114,7 @@ export const SignUp = async (req, res) => {
             profilePicture: gender === 'Male' ? boyPic : girlPic
         })
 
-        const savedUser= await newUser.save()
+        const savedUser = await newUser.save()
 
         if (!savedUser) {
             return res.status(500).json({
@@ -97,25 +123,25 @@ export const SignUp = async (req, res) => {
             })
         }
 
-        const payload={
-            userName:savedUser.userName,
-            email:savedUser.email,
-            id:savedUser._id,
+        const payload = {
+            userName: savedUser.userName,
+            email: savedUser.email,
+            id: savedUser._id,
 
         }
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' })
 
-        const option={
-            httpOnly:true,
-            expires:new Date(Date.now()+7*24*60*60*1000),
-            sameSite:'Lax',
-            secure:process.env.NODE_ENV === 'production'?true:false
+        const option = {
+            httpOnly: true,
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            sameSite: 'Lax',
+            secure: process.env.NODE_ENV === 'production' ? true : false
         }
-        return res.cookie('token',token,option).status(201).json({
-            success:true,
-            message:'User created successfully',
-            user:savedUser
+        return res.cookie('token', token, option).status(201).json({
+            success: true,
+            message: 'User created successfully',
+            user: savedUser
         })
 
     } catch (err) {
@@ -129,56 +155,56 @@ export const SignUp = async (req, res) => {
 
 
 
-export const login = async(req, res) => {
+export const login = async (req, res) => {
     try {
-        const{email,password}=req.body
-        if(!email || !password){
+        const { email, password } = req.body
+        if (!email || !password) {
             return res.status(400).json({
-                success:false,
-                message:'All fields are required'
+                success: false,
+                message: 'All fields are required'
             })
         }
-        const user=await User.findOne({email})
-        if(!user){
+        const user = await User.findOne({ email })
+        if (!user) {
             return res.status(400).json({
-                success:false,
-                message:'No user found'
+                success: false,
+                message: 'No user found'
             })
         }
 
-        const isPassword=await bcrypt.compare(password,user.password)
+        const isPassword = await bcrypt.compare(password, user.password)
 
-        if(!isPassword){
-            const payload={
-                userName:user.userName,
-                email:user.email,
-                id:user._id,
+        if (!isPassword) {
+            const payload = {
+                userName: user.userName,
+                email: user.email,
+                id: user._id,
             }
 
 
             user.toObject()
-            user.password=null
+            user.password = null
 
 
-            const token=jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:'7d'})
+            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' })
 
-            const option={
-                httpOnly:true,
-                sameSite:'Lax',
-                secure:process.env.NODE_ENV==='production',
-                expires:new Date(Date.now()+7*24*60*60*1000)
+            const option = {
+                httpOnly: true,
+                sameSite: 'Lax',
+                secure: process.env.NODE_ENV === 'production',
+                expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
             }
-            
 
-            return res.cookie('token',token,option).status(200).json({
-                success:true,
-                message:'Login successful',
+
+            return res.cookie('token', token, option).status(200).json({
+                success: true,
+                message: 'Login successful',
                 user
             })
-        }else{
+        } else {
             return res.status(400).json({
-                success:false,
-                message:'Incorrect password'
+                success: false,
+                message: 'Incorrect password'
             })
         }
 
@@ -186,6 +212,33 @@ export const login = async(req, res) => {
     } catch (err) {
         return res.status(500).json({
             success: false
+        })
+    }
+}
+
+
+
+export const logout = async (req, res) => {
+    try {
+        const token = req.cookies.token || req.body.token || req.header('Authorization')?.replace('Bearer ', '')
+        if (!token) {
+            return res.status(400).json({
+                success: false,
+                message: 'token is missing'
+            })
+        }
+
+        const blacklistToken = await BlackList.create({ token })
+        res.clearCookie('token')
+        return res.status(200).json({
+            succes: true,
+            message: 'Logged out successfully'
+        })
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error'
         })
     }
 }
