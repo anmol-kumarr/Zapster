@@ -1,10 +1,10 @@
-import User from "../models/user.model"
+import User from "../models/user.model.js"
 import jwt from "jsonwebtoken"
-import bcrypt from "bcryptjs"
+import bcrypt from "bcrypt"
 import 'dotenv/config'
 import otpGenerator from 'otp-generator'
-import OTP from "../models/otp.model"
-import BlackList from "../models/blacklist.model"
+import OTP from "../models/otp.model.js"
+import BlackList from "../models/blacklist.model.js"
 
 
 export const otpSender = async (req, res) => {
@@ -31,7 +31,7 @@ export const otpSender = async (req, res) => {
 
 
 
-        if (findUser?.length>0) {
+        if (findUser?.length > 0) {
             return res.status(400).json({
                 success: false,
                 message: 'Email already exists'
@@ -43,9 +43,7 @@ export const otpSender = async (req, res) => {
             lowerCaseAlphabets: false,
 
         })
-        const payload = { email, otp }
-
-        const newOtp = await OTP.create(payload)
+        const newOtp=await OTP.create({email,otp})
 
         return res.status(200).json({
             success: false,
