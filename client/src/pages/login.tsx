@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import LoginImage from '../assets/login.svg'
 import { Button, TextField } from "@mui/material"
 import { Link } from "react-router-dom"
+import { emailChecker, passwordChecker } from "../utils/inputChecker"
+import toast from "react-hot-toast"
 
 const Login: React.FC = () => {
     interface details {
@@ -15,7 +17,14 @@ const Login: React.FC = () => {
     })
 
     const loginHandler=():void=>{
-        console.log(loginDetails)
+        const isValidEmail=emailChecker(loginDetails.email)
+        if(!isValidEmail){
+            toast.error('Please enter a valid email')
+        }
+        const isPasswordValid=passwordChecker(loginDetails.password)
+        if(!isPasswordValid){
+            toast.error('Password must contain atleast 8 character')
+        }
     }
     return (
         <div className="w-full h-screen">
