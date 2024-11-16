@@ -49,8 +49,8 @@ const signUpSlice = createSlice({
         setGender: (state, action: PayloadAction<string>) => {
             state.details.gender = action.payload
         },
-        setProcess:(state,action:PayloadAction<number>)=>{
-            state.process=action.payload
+        setProcess:(state)=>{
+            state.process=state.process+1
         }
     }
 

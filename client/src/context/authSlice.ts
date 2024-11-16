@@ -3,7 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type Auth={
     userName:string,
     fullName:string,
-    token?:string
+    token?:string,
+    profileImage:string
 }
 
 interface InitialState{
@@ -11,15 +12,11 @@ interface InitialState{
     user:Auth|null
 }
 
-
-
 const initialState:InitialState={
     isAuthenticated:localStorage.getItem('zapster')?true:false,
     user:localStorage.getItem('zapster')?JSON.parse(localStorage.getItem('zapster')!):null
     
 }
-
-
 
 const authSlice=createSlice({
     name:'Auth',
