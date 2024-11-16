@@ -16,13 +16,13 @@ const Login: React.FC = () => {
         password: ''
     })
 
-    const loginHandler=():void=>{
-        const isValidEmail=emailChecker(loginDetails.email)
-        if(!isValidEmail){
+    const loginHandler = (): void => {
+        const isValidEmail = emailChecker(loginDetails.email)
+        if (!isValidEmail) {
             toast.error('Please enter a valid email')
         }
-        const isPasswordValid=passwordChecker(loginDetails.password)
-        if(!isPasswordValid){
+        const isPasswordValid = passwordChecker(loginDetails.password)
+        if (!isPasswordValid) {
             toast.error('Password must contain atleast 8 character')
         }
     }
@@ -91,7 +91,7 @@ const Login: React.FC = () => {
 
                             <div className="px-2 mt-4 flex justify-between items-center">
                                 <Button
-                                onClick={loginHandler}
+                                    onClick={loginHandler}
                                     sx={{ backgroundColor: '#6E00FF', '&:hover': { backgroundColor: '#5a00cc' } }}
                                     variant="contained"
                                 >
@@ -100,7 +100,9 @@ const Login: React.FC = () => {
 
                                 <Link to='/'>Forget password</Link>
                             </div>
-                            <div className="mt-4 text-center text-gray-700 font-inter">New user at Zapster? register now</div>
+                            <Link to='/signUp'>
+                                <div className="mt-4 text-center text-gray-700 font-inter">New user at Zapster? register now</div>
+                            </Link>
                         </div>
                     </div>
                 </div>
