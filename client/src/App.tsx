@@ -6,6 +6,10 @@ import Login from './pages/login'
 import SignUp from './pages/signUp'
 import OpenRoutes from './routes/openRoutes'
 import ChatPage from './pages/chatPage'
+import Home from './components/chats/home'
+import ChatSection from './components/chats/chatSection'
+import Notification from './components/chats/notification'
+import Setting from './components/chats/setting'
 
 function App() {
 
@@ -34,8 +38,14 @@ function App() {
         </Route>
 
         <Route path='/user' element={
-          
+
           <ChatPage></ChatPage>}>
+
+          <Route path='home' element={<Home></Home>}></Route>
+          <Route path='chat' element={<ChatSection></ChatSection>}></Route>
+          <Route path='notification' element={<Notification></Notification>}></Route>
+
+          <Route path='setting' element={<Setting></Setting>}></Route>
         </Route>
       </Routes>
     </div>

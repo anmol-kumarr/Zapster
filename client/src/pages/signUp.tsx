@@ -4,7 +4,7 @@ import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import signUpImage from '../assets/signUp.svg'
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../context/store";
-import { Email, FullName } from "../components/auth/signUpSteps";
+import { Email, FullName, Gender } from "../components/auth/signUpSteps";
 import { useDispatch } from "react-redux";
 import { setFullName, setProcess } from "../context/signUpSlice";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -75,6 +75,11 @@ const SignUp: React.FC = () => {
                                             <Email email={signUpDetails.email}
                                                 setDetails={setSignUpDetails}></Email>
                                         </CSSTransition>
+                                    )
+                                }
+                                {
+                                    step===3 && (
+                                        <Gender gender={signUpDetails.gender} setDetails={setSignUpDetails}></Gender>
                                     )
                                 }
 
