@@ -9,7 +9,7 @@ type InitialState = {
 
 
 const initialState: InitialState = {
-    process:1,
+    process: 1,
     details: {
         fullName: '',
         userName: '',
@@ -49,15 +49,21 @@ const signUpSlice = createSlice({
         setGender: (state, action: PayloadAction<string>) => {
             state.details.gender = action.payload
         },
-        setProcess:(state)=>{
-            state.process=state.process+1
+        setProcessIncrease: (state) => {
+            state.process = state.process + 1
+        },
+        setProcessDecrease: (state) => {
+            if (state.process > 1) {
+                state.process =state.process-1
+
+            }
         }
     }
 
 })
 
 
-export const { setFullName, setUserName, setEmail, setPassword, setProfile, setGender,setProcess } = signUpSlice.actions
+export const { setFullName, setUserName, setEmail, setPassword, setProfile, setGender, setProcessIncrease,setProcessDecrease } = signUpSlice.actions
 
 
 export default signUpSlice.reducer

@@ -217,6 +217,33 @@ export const login = async (req, res) => {
 }
 
 
+export const checkUserName=async(req,res)=>{
+    try{
+        const  {userName} =req.body
+        const findUser=await User.findOne({userName:userName})
+        if(findUser)
+        {
+            return res.status(400).json({
+                success:false,
+                message:'Username already exist'
+            })
+        }
+        else{
+            return res.status(200).json({
+                success:true,
+                message:'Username does not exist'
+            })
+        }
+
+    }catch(err){
+        console.log(err)
+        return res.status(500).json({
+            success:false,
+            message:'Internal server error'
+        })
+    }
+}
+
 
 export const logout = async (req, res) => {
     try {
