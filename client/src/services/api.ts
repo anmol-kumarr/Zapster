@@ -1,4 +1,7 @@
-const BASE_URL=process.env.BASE_URL
+
+
+const VITE_BASE_URL=import.meta.env.VITE_BASE_URL
+console.log(VITE_BASE_URL)
 
 interface Api{
     loginRoute:string,
@@ -10,10 +13,10 @@ interface Api{
 
 
 const apiRoutes:Api={
-    loginRoute:BASE_URL+'/auth/login',
-    otpRoute:BASE_URL+'/auth/otp',
-    signUpRoute:'/auth/signup',
-    userNameCheck:'/auth/check-username'
+    loginRoute:VITE_BASE_URL+'/auth/login',
+    otpRoute:VITE_BASE_URL+'/auth/otp',
+    signUpRoute:VITE_BASE_URL+'/auth/signup',
+    userNameCheck:VITE_BASE_URL+'/auth/check-username'
 }
 
 export default apiRoutes
