@@ -1,13 +1,16 @@
-import { Button, TextField } from "@mui/material";
-import React, { useState } from "react";
-import { Link, NavigateFunction, useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import signUpImage from '../assets/signUp.svg'
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../context/store";
-import { Email, FullName, Gender } from "../components/auth/signUpSteps";
+import { Email, FullName, Gender, Otp, Password, UserName } from "../components/auth/signUpSteps";
 import { useDispatch } from "react-redux";
-import { setFullName, setProcess } from "../context/signUpSlice";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { setProcessDecrease, setProcessIncrease } from "../context/signUpSlice";
+
+import { checkUserName, otpSender, signUpHandler } from "../services/operation/auth";
+import { emailChecker } from "../utils/inputChecker";
+import toast from "react-hot-toast";
 
 export interface SignUpDetails {
     fullName: string,
@@ -16,7 +19,8 @@ export interface SignUpDetails {
     password: string,
     gender: string,
     confirmPassword: string,
-    profileImage: string
+    profileImage: string,
+    otp: string
 }
 const SignUp: React.FC = () => {
     const [signUpDetails, setSignUpDetails] = useState<SignUpDetails>({
@@ -26,7 +30,8 @@ const SignUp: React.FC = () => {
         password: '',
         gender: '',
         confirmPassword: '',
-        profileImage: ''
+        profileImage: '',
+        otp: ''
     })
 
     const step: number = useSelector((state: RootState) => state.signUp.process)
@@ -34,12 +39,41 @@ const SignUp: React.FC = () => {
 
     const dispatch: AppDispatch = useDispatch()
 
-    const navigate:NavigateFunction=useNavigate()
+    const navigate: NavigateFunction = useNavigate()
+
+
+    useEffect(() => {
+        console.log(signUpDetails)
+    }, [signUpDetails])
+
+    const nextHandler = () => {
+        if (step === 1) {
+            signUpDetails.fullName.length > 0 ?
+                dispatch(setProcessIncrease()) : toast.error('Please fill the details')
+        }
+        if (step === 2) {
+            signUpDetails.userName.length > 0 ?checkUserName({ dispatch, userName: signUpDetails.userName }): toast.error('please fill the details')
+        }
+        if (step === 3) {
+            signUpDetails.gender === 'Male' || 'Female' || 'Others' ?
+                dispatch(setProcessIncrease()) : toast.error('please fill the details')
+        }
+
+        if (step === 4) {
+            emailChecker(signUpDetails.email) && otpSender({ dispatch, email: signUpDetails.email })
+        }
+
+        if (step === 5) {
+            signUpDetails.password.length > 0 && signUpDetails.confirmPassword.length > 0 ?
+                dispatch(setProcessIncrease()) : toast.error('please fill the details')
+        }
+        if (step === 6) {
+            signUpDetails.otp.length === 6 && signUpHandler({ dispatch, signUpDetails })
+        }
 
 
 
 
-    const signUpHandler = () => {
 
     }
 
@@ -54,42 +88,61 @@ const SignUp: React.FC = () => {
                 <div className="w-2/5 ">
 
                     <div className="w-10/12 p-5  " >
-                        <div className="font-inter mb-3">
+                        <div className="font-inter mb-5">
                             <h1 className="text-gray-700 text-2xl font-semibold">Sign Up to Zapster </h1>
                             <p className="text-gray-700">Enter your details below</p>
                         </div>
                         <div className="">
-                            <TransitionGroup className="animation-container">
 
-                                {
-                                    step === 1 && (
-                                        <CSSTransition key="step1" timeout={500} classNames="parallel">
 
-                                            <FullName fullName={signUpDetails.fullName} setDetails={setSignUpDetails}></FullName>
-                                        </CSSTransition>
-                                    )
-                                }{
-                                    step === 2 && (
-                                        <CSSTransition key="step2" timeout={500} classNames="parallel">
+                            {
+                                step === 1 && (
 
-                                            <Email email={signUpDetails.email}
-                                                setDetails={setSignUpDetails}></Email>
-                                        </CSSTransition>
-                                    )
-                                }
-                                {
-                                    step===3 && (
-                                        <Gender gender={signUpDetails.gender} setDetails={setSignUpDetails}></Gender>
-                                    )
-                                }
 
-                            </TransitionGroup>
+                                    <FullName fullName={signUpDetails.fullName} setDetails={setSignUpDetails}></FullName>
+
+                                )
+                            }{
+                                step === 2 && (
+
+
+                                    <UserName userName={signUpDetails.userName} setDetails={setSignUpDetails}></UserName>
+
+                                )
+                            }
+                            {
+                                step === 3 && (
+                                    <Gender gender={signUpDetails.gender} setDetails={setSignUpDetails}></Gender>
+                                )
+                            }
+                            {
+                                step === 4 && (
+                                    <Email email={signUpDetails.email}
+                                        setDetails={setSignUpDetails}></Email>
+                                )
+                            }
+                            {
+                                step === 5 && (
+                                    <Password password={signUpDetails.password} confirmPassword={signUpDetails.confirmPassword} setDetails={setSignUpDetails}></Password>
+                                )
+                            }
+                            {
+                                step === 6 && (
+                                    <Otp otp={signUpDetails.otp} setDetails={setSignUpDetails}></Otp>
+                                )
+                            }
+
+
 
                         </div>
-                        <div className="my-2 px-1">
+                        <div className="my-5 px-1 flex justify-between items-center">
+                            {
+                                step >= 2 && <Button sx={{ color: '#6E00FF' }} onClick={() => dispatch(setProcessDecrease())}>Back</Button>
+                            }
                             <Button
 
-                                onClick={() => dispatch(setProcess())}
+
+                                onClick={nextHandler}
                                 sx={{ backgroundColor: '#6E00FF', '&:hover': { backgroundColor: '#5a00cc' } }}
                                 variant="contained"
                             >Next</Button>
