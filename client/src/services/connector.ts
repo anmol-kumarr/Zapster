@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosRequestHeaders, AxiosResponse } from 'axios'
 
 interface ApiConnectorInterface {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
@@ -10,13 +10,13 @@ interface ApiConnectorInterface {
 
 export const axiosInstance = axios.create({})
 
-const apiConnector = ({ method, url, bodyData, header, params }: ApiConnectorInterface): Promise<AxiosResponse> => {
+const apiConnector = ({ method, url, bodyData, header, params}: ApiConnectorInterface): Promise<AxiosResponse> => {
     return axiosInstance({
         method: method,
         url: url,
         data: bodyData || null,
-        headers: header || null,
-        params: params || null,
+        headers: header || undefined,
+        params: params || undefined,
         withCredentials: true
     })
 }
