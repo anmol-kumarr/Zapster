@@ -10,6 +10,7 @@ import Home from './components/chats/home'
 import ChatSection from './components/chats/chatSection'
 import Notification from './components/chats/notification'
 import Setting from './components/chats/setting'
+import HomePage from './pages/homePage'
 
 function App() {
 
@@ -18,6 +19,13 @@ function App() {
     <div>
       <Routes>
         <Route path='/'
+          element={
+            <HomePage></HomePage>
+          }>
+        </Route>
+
+
+        <Route path='/login'
           element={
             <OpenRoutes>
               <Login></Login>

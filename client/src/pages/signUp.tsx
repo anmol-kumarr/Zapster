@@ -52,7 +52,7 @@ const SignUp: React.FC = () => {
                 dispatch(setProcessIncrease()) : toast.error('Please fill the details')
         }
         if (step === 2) {
-            signUpDetails.userName.length > 0 ?checkUserName({ dispatch, userName: signUpDetails.userName }): toast.error('please fill the details')
+            signUpDetails.userName.length > 0 ? checkUserName({ dispatch, userName: signUpDetails.userName }) : toast.error('please fill the details')
         }
         if (step === 3) {
             signUpDetails.gender === 'Male' || 'Female' || 'Others' ?
@@ -60,7 +60,7 @@ const SignUp: React.FC = () => {
         }
 
         if (step === 4) {
-            emailChecker(signUpDetails.email) && otpSender({ dispatch, email: signUpDetails.email })
+            emailChecker(signUpDetails.email) && otpSender({ dispatch, email: signUpDetails.email, userName: signUpDetails.userName })
         }
 
         if (step === 5) {
@@ -68,8 +68,9 @@ const SignUp: React.FC = () => {
                 dispatch(setProcessIncrease()) : toast.error('please fill the details')
         }
         if (step === 6) {
-            signUpDetails.otp.length === 6 && signUpHandler({ dispatch, signUpDetails })
+            signUpDetails.otp.length === 6 && signUpHandler({navigate, dispatch, signUpDetails })
         }
+
 
 
 
@@ -121,7 +122,7 @@ const SignUp: React.FC = () => {
                                         setDetails={setSignUpDetails}></Email>
                                 )
                             }
-                            {
+                                {
                                 step === 5 && (
                                     <Password password={signUpDetails.password} confirmPassword={signUpDetails.confirmPassword} setDetails={setSignUpDetails}></Password>
                                 )
@@ -131,6 +132,8 @@ const SignUp: React.FC = () => {
                                     <Otp otp={signUpDetails.otp} setDetails={setSignUpDetails}></Otp>
                                 )
                             }
+                        
+
 
 
 

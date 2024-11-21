@@ -4,7 +4,9 @@ type Auth={
     userName:string,
     fullName:string,
     token?:string,
-    profileImage:string
+    gender?:string,
+    profileImage:string,
+    password?:null
 }
 
 interface InitialState{
