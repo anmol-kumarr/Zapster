@@ -13,7 +13,7 @@ const app=express()
 app.use(express.json()) //parse json body from request
 app.use(cookieParser()) // to parse cookie from client
 app.use(cors({
-    origin:'http://localhost:5174',
+    origin:'http://localhost:5173',
     credentials:true
 }))
 app.listen(process.env.PORT || 4001,()=>{

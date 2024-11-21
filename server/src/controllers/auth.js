@@ -86,7 +86,7 @@ export const SignUp = async (req, res) => {
         const findOtp = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1)
         console.log('otp',findOtp)
 
-        if (findOtp?.length === 0) {
+        if (!findOtp || findOtp?.length === 0) {
             return res.status(400).json({
                 success: false,
                 message: 'Otp not found'
