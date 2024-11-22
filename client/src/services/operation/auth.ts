@@ -65,12 +65,12 @@ export const otpSender = async ({ dispatch, email, userName }: OtpProps) => {
 interface SignUpHandlerProps {
     signUpDetails: SignUpDetails
     dispatch: Dispatch,
-    navigate:NavigateFunction
+    navigate: NavigateFunction
 }
 
-export const signUpHandler = async ({navigate,dispatch,signUpDetails }: SignUpHandlerProps) => {
+export const signUpHandler = async ({ navigate, dispatch, signUpDetails }: SignUpHandlerProps) => {
     const api = apiRoutes.signUpRoute
-    
+
     toast.loading('Loading')
     try {
         const response = await apiConnector({ method: 'POST', url: api, bodyData: { ...signUpDetails } })
@@ -79,9 +79,12 @@ export const signUpHandler = async ({navigate,dispatch,signUpDetails }: SignUpHa
         if (!response.data.success) {
             toast.error(response.data.message)
         }
+
+        const authValue = response.data.user
+        authValue.validUpto = Date.now()
         toast.success('Signup successful')
         localStorage.setItem('zapster', JSON.stringify(response.data.user))
-        dispatch(setIsAuthenticated({...response?.data?.user}))
+        dispatch(setIsAuthenticated({ ...response?.data?.user }))
         navigate('/user/home')
 
 
@@ -89,5 +92,48 @@ export const signUpHandler = async ({navigate,dispatch,signUpDetails }: SignUpHa
         console.log(err)
         toast.dismiss()
         toast.error('Something went wrong')
+    }
+}
+
+
+
+interface LoginProps {
+    email: string,
+    password: string,
+    navigate: NavigateFunction,
+    dispatch: Dispatch
+}
+
+export const handlerLogin = async ({ email, password, navigate, dispatch }: LoginProps) => {
+
+    toast.loading('Loading')
+    const api: string = apiRoutes.loginRoute
+    try {
+        const response = await apiConnector({ method: 'POST', url: api, bodyData: { email, password } })
+
+        console.log(response)
+
+        if (!response?.data?.message) {
+            toast.dismiss()
+            toast.error("login failed")
+            throw new Error("failed login")
+        }
+        toast.dismiss()
+
+        toast.success("login successful")
+
+        dispatch(setIsAuthenticated({ ...response?.data?.user }))
+
+
+
+
+        localStorage.setItem('zapster', JSON.stringify({ ...response?.data?.user, validUpto: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) }))
+
+        navigate('/user/home')
+
+    } catch (err) {
+        console.log(err)
+        toast.dismiss()
+        toast.error('Login failed')
     }
 }

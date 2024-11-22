@@ -4,7 +4,7 @@ import mailSender from "../utils/mailSender.js";
 const otpSchema=new mongoose.Schema({
     email:{
         type:String,
-        reuired:true
+        required:true
     },
     otp:{
         type:String,

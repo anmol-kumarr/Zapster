@@ -43,7 +43,7 @@ export const otpSender = async (req, res) => {
             lowerCaseAlphabets: false,
 
         })
-        const newOtp=await OTP.create({email,otp})
+        const newOtp = await OTP.create({ email, otp })
 
         return res.status(200).json({
             success: false,
@@ -84,7 +84,7 @@ export const SignUp = async (req, res) => {
         }
 
         const findOtp = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1)
-        console.log('otp',findOtp)
+        console.log('otp', findOtp)
 
         if (!findOtp || findOtp?.length === 0) {
             return res.status(400).json({
@@ -122,6 +122,9 @@ export const SignUp = async (req, res) => {
                 message: "Signup failed"
             })
         }
+
+        savedUser.toObject()
+        savedUser.password = null
 
         const payload = {
             userName: savedUser.userName,
@@ -217,29 +220,28 @@ export const login = async (req, res) => {
 }
 
 
-export const checkUserName=async(req,res)=>{
-    try{
-        const  {userName} =req.body
-        const findUser=await User.findOne({userName:userName})
-        if(findUser)
-        {
+export const checkUserName = async (req, res) => {
+    try {
+        const { userName } = req.body
+        const findUser = await User.findOne({ userName: userName })
+        if (findUser) {
             return res.status(400).json({
-                success:false,
-                message:'Username already exist'
+                success: false,
+                message: 'Username already exist'
             })
         }
-        else{
+        else {
             return res.status(200).json({
-                success:true,
-                message:'Username does not exist'
+                success: true,
+                message: 'Username does not exist'
             })
         }
 
-    }catch(err){
+    } catch (err) {
         console.log(err)
         return res.status(500).json({
-            success:false,
-            message:'Internal server error'
+            success: false,
+            message: 'Internal server error'
         })
     }
 }
@@ -266,6 +268,63 @@ export const logout = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: 'Internal server error'
+        })
+    }
+}
+
+
+
+
+export const insertData = async (req, res) => {
+    try {
+        const { fullName, userName, email, password, confirmPassword, gender, profilePicture, otp } = req.body
+
+        if (!fullName || !userName || !email || !password || !confirmPassword || !gender) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required"
+            })
+        }
+
+        if (password.trim() !== confirmPassword.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Password and Confirm Password do not match"
+            })
+        }
+        const emailExists = await User.findOne({ email })
+        if (emailExists) {
+            return res.status(400).json({
+                success: false,
+                message: "Email already exists"
+            })
+        }
+
+        const boyPic = `https://avatar.iran.liara.run/public/boy?username=${userName}`
+        const girlPic = `https://avatar.iran.liara.run/public/girl?username=${userName}`
+
+        const hashedPassword = await bcrypt.hash(password, 12)
+
+        const newUser = new User({
+            fullName,
+            userName,
+            password: hashedPassword,
+            gender,
+            email,
+            profilePicture: gender === 'Male' ? boyPic : girlPic
+        })
+
+
+        await newUser.save()
+
+        return res.status(201).json({
+            success:true
+        })
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({
+            success: false,
+            message: 'internal server error'
         })
     }
 }
