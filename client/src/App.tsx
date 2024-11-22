@@ -11,8 +11,36 @@ import ChatSection from './components/chats/chatSection'
 import Notification from './components/chats/notification'
 import Setting from './components/chats/setting'
 import HomePage from './pages/homePage'
+import { useEffect } from 'react'
+import CloseRoute from './routes/closeRoute'
+import socketConnection from './services/operation/socket'
 
+interface AuthValue {
+  userName: string,
+  fullName: string,
+  token?: string,
+  gender?: string,
+  profileImage: string,
+  password?: null,
+  validUpto?: Date
+}
 function App() {
+
+  useEffect(() => {
+    const authValue: AuthValue = JSON.parse(localStorage.getItem('zapster') || '{}')
+
+
+
+    if (authValue.validUpto && new Date(authValue.validUpto) < new Date()) {
+      localStorage.removeItem('zapster')
+    }
+
+
+  }, [])
+  socketConnection()
+
+
+
 
 
   return (
@@ -46,8 +74,11 @@ function App() {
         </Route>
 
         <Route path='/user' element={
+          <CloseRoute>
 
-          <ChatPage></ChatPage>}>
+            <ChatPage></ChatPage>
+          </CloseRoute>
+        }>
 
           <Route path='home' element={<Home></Home>}></Route>
           <Route path='chat' element={<ChatSection></ChatSection>}></Route>

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react"
 import LoginImage from '../assets/login.svg'
 import { Button, TextField } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Link, NavigateFunction, useNavigate } from "react-router-dom"
 import { emailChecker, passwordChecker } from "../utils/inputChecker"
 import toast from "react-hot-toast"
+import { handlerLogin } from "../services/operation/auth"
+import { Dispatch } from "redux"
+import { useDispatch } from "react-redux"
 
 const Login: React.FC = () => {
     interface details {
@@ -15,16 +18,23 @@ const Login: React.FC = () => {
         email: '',
         password: ''
     })
-
+    const navigate: NavigateFunction = useNavigate()
+    const dispatch:Dispatch=useDispatch()
     const loginHandler = (): void => {
         const isValidEmail = emailChecker(loginDetails.email)
         if (!isValidEmail) {
             toast.error('Please enter a valid email')
         }
-        const isPasswordValid = passwordChecker(loginDetails.password)
-        if (!isPasswordValid) {
-            toast.error('Password must contain atleast 8 character')
+        // const isPasswordValid = passwordChecker(loginDetails.password)
+
+
+        if (!loginDetails.password) {
+            toast.error('Password is empty')
         }
+
+        handlerLogin({ email: loginDetails.email, password: loginDetails.password, navigate: navigate, dispatch: dispatch })
+
+
     }
     return (
         <div className="w-full h-screen">
