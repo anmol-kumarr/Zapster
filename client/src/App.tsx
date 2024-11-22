@@ -15,6 +15,8 @@ import { useEffect } from 'react'
 import CloseRoute from './routes/closeRoute'
 import socketConnection from './services/operation/socket'
 import useSocketConnection from './services/operation/socket'
+import SearchSection from './components/chats/searchSection'
+import SearchProfile from './components/chats/searchProfile'
 
 interface AuthValue {
   userName: string,
@@ -87,6 +89,14 @@ function App() {
           <Route path='notification' element={<Notification></Notification>}></Route>
 
           <Route path='setting' element={<Setting></Setting>}></Route>
+
+          <Route path='search'>
+
+            <Route path='' element={<SearchSection></SearchSection>}>
+              <Route path=':userId' element={<SearchProfile></SearchProfile>}></Route>
+            </Route>
+
+          </Route>
         </Route>
       </Routes>
     </div>

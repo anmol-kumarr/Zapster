@@ -1,9 +1,16 @@
+import GroupSection from "./groupSection"
 import UserBar from "./userBar"
 
 const ChatSection = () => {
     return (
-        <div>
-            <UserBar></UserBar>
+        <div className="flex">
+            <div className="w-[25%]">
+                <GroupSection></GroupSection>
+            </div>
+            <div>
+
+                <UserBar></UserBar>
+            </div>
         </div>
     )
 }
