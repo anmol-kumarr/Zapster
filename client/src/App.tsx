@@ -14,6 +14,7 @@ import HomePage from './pages/homePage'
 import { useEffect } from 'react'
 import CloseRoute from './routes/closeRoute'
 import socketConnection from './services/operation/socket'
+import useSocketConnection from './services/operation/socket'
 
 interface AuthValue {
   userName: string,
@@ -26,6 +27,8 @@ interface AuthValue {
 }
 function App() {
 
+
+
   useEffect(() => {
     const authValue: AuthValue = JSON.parse(localStorage.getItem('zapster') || '{}')
 
@@ -37,8 +40,7 @@ function App() {
 
 
   }, [])
-  socketConnection()
-
+  useSocketConnection()
 
 
 
