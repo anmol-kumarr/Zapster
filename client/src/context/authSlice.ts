@@ -6,7 +6,8 @@ type Auth={
     token?:string,
     gender?:string,
     profileImage:string,
-    password?:null
+    password?:null,
+    _id?:string
 }
 
 interface InitialState{
