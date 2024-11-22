@@ -8,7 +8,8 @@ interface Api{
     otpRoute:string,
     signUpRoute:string,
     userNameCheck:string,
-    getUsersList:string
+    getUsersList:string,
+    getUserProfile:string
 }
 
 
@@ -18,7 +19,8 @@ const apiRoutes:Api={
     otpRoute:VITE_BASE_URL+'/auth/otp',
     signUpRoute:VITE_BASE_URL+'/auth/signup',
     userNameCheck:VITE_BASE_URL+'/auth/check-username',
-    getUsersList:VITE_BASE_URL+'/user/list/username'
+    getUsersList:VITE_BASE_URL+'/user/list/username',
+    getUserProfile:VITE_BASE_URL+'/user/get-profile'
 }
 
 export default apiRoutes

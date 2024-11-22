@@ -1,9 +1,10 @@
 import React from "react"
 import SideBar from "../components/chats/sideBar"
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 import GroupSection from "../components/chats/groupSection"
 
 const ChatPage: React.FC = () => {
+    const location=useLocation().pathname.split('/')
     return (
         <div className="flex items-center h-screen">
 
@@ -15,11 +16,9 @@ const ChatPage: React.FC = () => {
                     <SideBar></SideBar>
 
                 </div>
-                <div className="w-[25%]">
-                    <GroupSection></GroupSection>
-                </div>
+                
 
-                <div className="text-black w-[calc(100%-55%)]">
+                <div className={`text-black ${location.includes('search')?'w-[calc(100%-10%)]':'w-[calc(100%-55%)]'}`}>
                     <Outlet></Outlet>
                 </div>
             </div>

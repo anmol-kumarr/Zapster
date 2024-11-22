@@ -124,9 +124,6 @@ export const handlerLogin = async ({ email, password, navigate, dispatch }: Logi
 
         dispatch(setIsAuthenticated({ ...response?.data?.user }))
 
-
-
-
         localStorage.setItem('zapster', JSON.stringify({ ...response?.data?.user, validUpto: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) }))
 
         navigate('/user/home')

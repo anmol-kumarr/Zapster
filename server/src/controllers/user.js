@@ -56,3 +56,27 @@ export const getUserList = async (req, res) => {
         })
     }
 }
+
+
+
+export const getUserProfile = async (req, res) => {
+    try {
+        const userId = req.params.userId
+        const getUser = await User.findById(userId).select('fullName userName profilePicture gender')
+
+        if (getUser === undefined) {
+            return res.status(404).json({
+                success: false,
+                message: 'user not found'
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Profile fetched successfully',
+            data: getUser
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
