@@ -21,6 +21,9 @@ export default {
         "edu-sa": ["Edu SA Beginner", "cursive"],
         mono: ["Roboto Mono", "monospace"],
       },
+      backgroundImage:{
+        'chat-bg':"url('./src/assets/chat-bg.jpg')"
+      }
     },
   },
   plugins: [],

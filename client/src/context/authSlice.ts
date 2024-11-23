@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type Auth={
+export type Auth={
     userName:string,
     fullName:string,
     token?:string,

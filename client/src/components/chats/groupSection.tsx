@@ -4,7 +4,7 @@ import SearchBar from "./searchBar";
 
 const GroupSection: React.FC = () => {
     return (
-        <div className="w-full border-red-400 border-2 h-[calc(100vh-3rem)]">
+        <div className="w-full bg- h-[calc(100vh-1rem)]">
 
         </div>
     )

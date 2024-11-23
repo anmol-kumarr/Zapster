@@ -2,53 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
-    position: relative;
-    width: 300px;
-    height: 200px;
-    margin: 50px auto;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
 }
 
-.animation-container {
-    position: relative;
-    height: 100%;
+::-webkit-scrollbar-track {
+  background: #f9f5ff;
+  border-radius: 2px;
 }
 
-.box {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    background: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+::-webkit-scrollbar-thumb {
+  background: #6f00ffa3;
+  border-radius: 2px;
 }
 
-/* Exiting to the left */
-.parallel-exit {
-    opacity: 1;
-    transform: translateX(0);
-}
-.parallel-exit-active {
-    opacity: 0;
-    transform: translateX(-100%);
-    transition: transform 500ms ease, opacity 500ms ease;
-}
-
-/* Entering from the right */
-.parallel-enter {
-    opacity: 0;
-    transform: translateX(100%);
-}
-.parallel-enter-active {
-    opacity: 1;
-    transform: translateX(0);
-    transition: transform 500ms ease, opacity 500ms ease;
+::-webkit-scrollbar-thumb:hover {
+  background: #a267e5;
 }
