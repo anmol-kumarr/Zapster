@@ -84,16 +84,40 @@ function App() {
           </CloseRoute>
         }>
 
-          <Route path='home' element={<Home></Home>}></Route>
-          <Route path='chat' element={<ChatSection></ChatSection>}></Route>
-          <Route path='notification' element={<Notification></Notification>}></Route>
+          <Route
+            path='home'
+            element={<Home></Home>}
+          ></Route>
 
-          <Route path='setting' element={<Setting></Setting>}></Route>
 
-          <Route path='search'>
+          <Route
+            path='chat/:userId?' element={<ChatSection></ChatSection>} >
 
-            <Route path='' element={<SearchSection></SearchSection>}>
-              <Route path=':userId' element={<SearchProfile></SearchProfile>}></Route>
+          </Route>
+
+
+
+          <Route
+            path='notification'
+            element={<Notification></Notification>}
+          ></Route>
+
+          <Route
+            path='setting'
+            element={<Setting></Setting>}
+          ></Route>
+
+          <Route
+            path='search'>
+
+            <Route
+              path=''
+              element={<SearchSection></SearchSection>}>
+
+              <Route
+                path=':userId'
+                element={<SearchProfile></SearchProfile>}
+              ></Route>
             </Route>
 
           </Route>
