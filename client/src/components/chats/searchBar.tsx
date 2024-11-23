@@ -7,8 +7,8 @@ import SearchResponseBox from "./searchResponseBox";
 export interface SearchProps {
     fullName: string,
     userName: string,
-    profilePicture: string,
-    _id: string
+    profilePicture?: string,
+    _id?: string
 
 }
 interface SearchBar {

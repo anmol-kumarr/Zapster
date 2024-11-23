@@ -5,7 +5,7 @@ export type Auth={
     fullName:string,
     token?:string,
     gender?:string,
-    profileImage:string,
+    profilePicture:string,
     password?:null,
     _id?:string
 }

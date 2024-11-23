@@ -111,6 +111,7 @@ export const SignUp = async (req, res) => {
             password: hashedPassword,
             gender,
             email,
+            friends:[],
             profilePicture: gender === 'Male' ? boyPic : girlPic
         })
 
@@ -311,6 +312,7 @@ export const insertData = async (req, res) => {
             password: hashedPassword,
             gender,
             email,
+            friends:[],
             profilePicture: gender === 'Male' ? boyPic : girlPic
         })
 

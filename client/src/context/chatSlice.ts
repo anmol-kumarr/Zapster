@@ -14,8 +14,8 @@ const chatSlice=createSlice({
     name:'Chat',
     initialState,
     reducers:{
-        addFriends:(state,action:PayloadAction<Auth>)=>{
-            state.friends.push(action.payload)
+        addFriends:(state,action:PayloadAction<Auth[]>)=>{
+            state.friends=action.payload
         }
     }
 })

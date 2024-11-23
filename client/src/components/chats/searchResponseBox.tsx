@@ -5,6 +5,8 @@ import { NavigateFunction, useNavigate } from "react-router-dom"
 
 
 const SearchResponseBox: React.FC<SearchProps> = ({ profilePicture, fullName, userName, _id }) => {
+
+    
     const navigate: NavigateFunction = useNavigate()
     return (
         <div onClick={() => navigate(`${_id}`)} className="cursor-pointer flex gap-2 px-3 py-2 items-center  w-full">

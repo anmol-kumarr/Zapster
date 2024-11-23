@@ -8,7 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 const SideBar: React.FC = () => {
 
     const location = useLocation().pathname.split('/')
-    console.log(location)
+    // console.log(location)
     return (
         <div className="bg-themeBlue  text-3xl text-white h-full rounded-lg flex flex-col justify-between items-center">
             <div className="flex flex-col gap-5 items-center py-5">
