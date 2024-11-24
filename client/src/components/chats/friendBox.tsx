@@ -1,6 +1,6 @@
 import React from "react"
 import { SearchProps } from "./searchBar"
-import { NavigateFunction, useNavigate } from "react-router-dom"
+import { NavigateFunction, replace, useNavigate } from "react-router-dom"
 
 
 
@@ -8,7 +8,7 @@ const FriendBox: React.FC<SearchProps> = ({ profilePicture, fullName, userName, 
 
     const navigate: NavigateFunction = useNavigate()
     return (
-        <div onClick={() => navigate(`/user/chat/${_id}`)} className="cursor-pointer flex gap-2 px-3 py-2 items-center  w-full">
+        <div onClick={() => navigate(`/user/chat/${_id}`,{replace:true})} className="cursor-pointer flex gap-2 px-3 py-2 items-center  w-full">
             <div className="h-10 w-10 rounded-full">
                 <img className="h-full w-full" src={profilePicture} alt="" />
             </div>

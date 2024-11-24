@@ -6,10 +6,13 @@ import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { Provider } from 'react-redux';
 import store from './context/store.ts'
+import { SocketProvider } from './context/socketContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
+      <SocketProvider>
+
 
 
       <BrowserRouter>
@@ -18,6 +21,7 @@ createRoot(document.getElementById('root')!).render(
         <Toaster></Toaster>
       </BrowserRouter>
 
+      </SocketProvider>
     </Provider>
   </StrictMode>,
 )

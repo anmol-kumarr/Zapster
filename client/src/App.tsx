@@ -13,8 +13,7 @@ import Setting from './components/chats/setting'
 import HomePage from './pages/homePage'
 import { useEffect } from 'react'
 import CloseRoute from './routes/closeRoute'
-import socketConnection from './services/operation/socket'
-import useSocketConnection from './services/operation/socket'
+import {useSocket} from './context/socketContext'
 import SearchSection from './components/chats/searchSection'
 import SearchProfile from './components/chats/searchProfile'
 
@@ -29,24 +28,26 @@ interface AuthValue {
 }
 function App() {
 
-
-
+  
   useEffect(() => {
     const authValue: AuthValue = JSON.parse(localStorage.getItem('zapster') || '{}')
-
-
-
+    
+    
+    
     if (authValue.validUpto && new Date(authValue.validUpto) < new Date()) {
       localStorage.removeItem('zapster')
     }
-
-
+    
+    
   }, [])
-  useSocketConnection()
+  useSocket()
 
 
-
-
+  
+  
+  
+  
+  
   return (
     <div>
       <Routes>
