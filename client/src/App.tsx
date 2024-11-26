@@ -13,7 +13,7 @@ import Setting from './components/chats/setting'
 import HomePage from './pages/homePage'
 import { useEffect } from 'react'
 import CloseRoute from './routes/closeRoute'
-import {useSocket} from './context/socketContext'
+
 import SearchSection from './components/chats/searchSection'
 import SearchProfile from './components/chats/searchProfile'
 
@@ -40,7 +40,7 @@ function App() {
     
     
   }, [])
-  useSocket()
+
 
 
   

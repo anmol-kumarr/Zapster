@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { Provider } from 'react-redux';
 import store from './context/store.ts'
-import { SocketProvider } from './context/socketContext.tsx'
+import { SocketProvider } from './socket/socket.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

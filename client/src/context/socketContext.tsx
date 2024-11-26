@@ -1,68 +1,58 @@
-import React, { createContext, ReactNode, useContext, useEffect, useState } from "react"
-import { useSelector } from "react-redux"
-import { RootState } from "./store"
-import { io, Socket } from "socket.io-client"
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { io, Socket } from "socket.io-client";
 
-const VITE_SOCKET_URL = import.meta.env.VITE_SOCKET_URL
-const socketUrl = VITE_SOCKET_URL
-
+// Define the SocketContext type
 interface SocketContextType {
-    socket: Socket,
-    isConnected: boolean
+    socket: Socket | null; // Socket instance
+    isConnected: boolean;  // Connection status
 }
 
-const SocketContext = createContext<SocketContextType | undefined>(undefined)
+// Create the context with an undefined default value
+const SocketContext = createContext<SocketContextType | undefined>(undefined);
 
-
-
-
+// Create the provider component
 export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-
-    const { isAuthenticated, user } = useSelector((state: RootState) => state.auth)
-    const [isConnected, setIsConnected] = useState<boolean>(false)
-
-    const socket = io(socketUrl, {
-        autoConnect: false,
-        query: {
-            userId:user?._id
-        }
-    })
+    const [socket, setSocket] = useState<Socket | null>(null);
+    const [isConnected, setIsConnected] = useState<boolean>(false);
 
     useEffect(() => {
+        // Initialize the socket connection
+        const socketInstance = io(import.meta.env.VITE_SOCKET_URL || "http://localhost:4000", {
+            autoConnect: false, // Manual connection
+        });
 
+        // Establish the connection
+        socketInstance.connect();
 
+        // Listen for connection and disconnection events
+        socketInstance.on("connect", () => {
+            console.log("Socket connected");
+            setIsConnected(true);
+        });
 
-        if (isAuthenticated && user) {
+        socketInstance.on("disconnect", () => {
+            console.log("Socket disconnected");
+            setIsConnected(false);
+        });
 
-            // socket.connect()
-            // socket.on('connect', () => {
-            //     console.log('Socket is connected')
-            //     setIsConnected(true)
-            // })
+        // Set the socket instance in state
+        setSocket(socketInstance);
 
-
-            // socket.on('disconnect', () => {
-            //     console.log('socket is disconnected')
-            //     setIsConnected(false)
-            // })
-
-            // return () => {
-            //     socket.disconnect()
-            // }
-        }
-    }, [isAuthenticated, user])
-
+        // Cleanup on unmount
+        return () => {
+            socketInstance.disconnect();
+            console.log("Socket disconnected on cleanup");
+        };
+    }, []);
 
     return (
-        <SocketContext.Provider value={{ socket, isConnected }
-        }>
+        <SocketContext.Provider value={{ socket, isConnected }}>
             {children}
         </SocketContext.Provider>
     );
+};
 
-}
-
-
+// Custom hook to use the SocketContext
 export const useSocket = (): SocketContextType => {
     const context = useContext(SocketContext);
     if (!context) {
