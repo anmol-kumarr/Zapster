@@ -22,7 +22,7 @@ const UserBar: React.FC = () => {
 
             setUser(friends)
         }
-        console.log('friends', friends)
+        // console.log('friends', friends)
     }, [userId,allFriends])
 
     return (

@@ -42,36 +42,39 @@ io.on('connection', (socket) => {
         const receiverId = data?.userId
 
 
-        const message = new Message({
-            senderId: senderId,
-            content: data?.message,
-            receiverId: receiverId
-        })
-        // const newMessage=await message.save()
+
 
         const findConversation = await Conversation.findOne({ participants: { $all: [senderId, receiverId] } })
 
-        if (!findConversation && message) {
-            io.to(socket.id).emit('errorMessage','Something went wrong')
-        } else {
+        if (findConversation) {
+            const message = new Message({
+                senderId: senderId,
+                content: data?.message,
+                receiverId: receiverId,
+                conversation: findConversation._id
+            })
+
+            const newMessage = await message.save()
 
             await Conversation.findOneAndUpdate({
                 participants: { $all: [senderId, receiverId] }
             },
                 {
-                    $push: { messages: message._id }
+                    $push: { messages: newMessage._id }
                 }, { new: true }
             )
+
+            if (!findConversation && newMessage) {
+                io.to(socket.id).emit('errorMessage', 'Something went wrong')
+            }
+
+            if (toSend) {
+                console.log(toSend)
+                io.to(toSend).emit('receiveMessage', newMessage)
+            }
         }
 
-        
 
-
-
-        if (toSend) {
-            console.log(toSend)
-            io.to(toSend).emit('receiveMessage', message)
-        }
 
 
 

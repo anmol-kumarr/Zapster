@@ -17,6 +17,9 @@ import CloseRoute from './routes/closeRoute'
 import SearchSection from './components/chats/searchSection'
 import SearchProfile from './components/chats/searchProfile'
 import { useSocket } from './socket/socket'
+import { Dispatch } from 'redux'
+import { useDispatch } from 'react-redux'
+import { addMessage, Message } from './context/chatSlice'
 
 interface AuthValue {
   userName: string,
@@ -45,12 +48,15 @@ function App() {
   }, [])
 
   const { socket, isConnected } = useSocket()
-
+  const dispatch:Dispatch=useDispatch()
 
   useEffect(() => {
     socket?.on('receiveMessage', (data) => {
       console.log(data)
+      dispatch(addMessage(data))
     })
+
+
   }, [isConnected, socket])
 
 

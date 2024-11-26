@@ -64,28 +64,32 @@ export const getMessage = async (req, res) => {
         const conversation = await Conversation.findOne({
             participants: { $all: [userToChat, userId] }
         }).sort({ createdAt: -1 }).skip(skip).limit(limit).populate('messages')
-        const totalItems = await Item.countDocuments();
-        const totalPages = Math.ceil(totalItems / limit);
-
+        const totalMessages = await Message.countDocuments({
+            senderId: { $in: [userId, userToChat] },
+            receiverId: { $in: [userId, userToChat] }
+        });
         
-        if(!conversation){
+        const totalPages = Math.ceil(totalMessages / limit);
+
+
+        if (!conversation) {
             return res.status(200).json({
-                success:true,
-                message:'Message is empty',
-                data:[]
+                success: true,
+                message: 'Message is empty',
+                data: []
             })
         }
 
 
         return res.status(200).json({
-            success:true,
-            message:'Message fetched',
-            data:conversation,
-            meta:{
-                totalItems,
+            success: true,
+            message: 'Message fetched',
+            data: conversation,
+            meta: {
+                totalMessages,
                 totalPages,
-                currentPage:page,
-                perPage:limit
+                currentPage: page,
+                perPage: limit
             }
         })
     } catch (err) {

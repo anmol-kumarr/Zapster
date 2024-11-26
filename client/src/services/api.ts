@@ -10,7 +10,8 @@ interface Api {
     userNameCheck: string,
     getUsersList: string,
     getUserProfile: string,
-    getFriends: string
+    getFriends: string,
+    getConversation:string
 }
 
 
@@ -20,9 +21,15 @@ const apiRoutes: Api = {
     otpRoute: VITE_BASE_URL + '/auth/otp',
     signUpRoute: VITE_BASE_URL + '/auth/signup',
     userNameCheck: VITE_BASE_URL + '/auth/check-username',
+
+
     getUsersList: VITE_BASE_URL + '/user/list/username',
     getUserProfile: VITE_BASE_URL + '/user/get-profile',
-    getFriends: VITE_BASE_URL+'/user/get-friends'
+    getFriends: VITE_BASE_URL+'/user/get-friends',
+
+
+    getConversation:VITE_BASE_URL+'/message'
+
 }
 
 export default apiRoutes

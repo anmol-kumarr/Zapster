@@ -1,3 +1,5 @@
+import { Message } from "../context/chatSlice";
+
 // socketEvents.ts
 export interface ClientToServerEvents {
     sendMessage: (data: { message: string; userId: string }) => void;
@@ -5,6 +7,6 @@ export interface ClientToServerEvents {
 }
 
 export interface ServerToClientEvents {
-    receiveMessage: (data: { message: string; userId: string }) => void;
+    receiveMessage: (data: Message) => void;
     notification: (data: { title: string; body: string }) => void;
 }

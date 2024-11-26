@@ -3,32 +3,38 @@ import { Auth } from "./authSlice";
 
 
 
-interface Message {
+export interface Message {
     senderId: string,
     receiverId: string,
-    content: string
+    conversation: string
+    content: string,
+    updatedAt: string,
+    createdAt: string,
+    _id: string
 }
 
 interface Conversation {
     participants: [string, string],
     messages: Message[],
-    friendId: string
-
+    friendId: string,
+    updatedAt?: string,
+    createdAt?: string,
+    _id?: string,
+    __v?: number
 }
 
 
-interface ConversationPayload {
-    participants: [string, string],
-    message: Message,
-    friendId: string
-}
+// interface ConversationPayload {
+//     participants: [string, string],
+//     message: Message,
+//     friendId: string
+// }
 
 
 
 interface Chat {
     friends: Auth[],
     conversations: Conversation[]
-
 }
 
 const initialState: Chat = {
@@ -43,19 +49,26 @@ const chatSlice = createSlice({
         addFriends: (state, action: PayloadAction<Auth[]>) => {
             state.friends = action.payload
         },
-        addConversation: (state, action: PayloadAction<ConversationPayload>) => {
-            state.conversations.forEach(conversation => {
-                if (conversation.friendId === action.payload.friendId) {
-                    conversation.messages.push(action.payload.message)
-                }
+        addConversation: (state, action: PayloadAction<Conversation>) => {
+
+
+            state.conversations.push(action.payload)
+        },
+        addMessage: (state, action: PayloadAction<Message>) => {
+            const findOne = state.conversations.find(
+                (conversation) => conversation._id === action.payload.conversation
+            );
+
+            if (findOne) {
                 
-            });
+                findOne.messages.push(action.payload);
+            }
         }
 
     }
 })
 
 
-export const { addFriends } = chatSlice.actions
+export const { addFriends, addConversation,addMessage } = chatSlice.actions
 
 export default chatSlice.reducer
