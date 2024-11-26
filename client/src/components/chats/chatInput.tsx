@@ -25,6 +25,7 @@ const ChatInput: React.FC = () => {
             // Emit an event to the server when the button is clicked
             socket.emit("sendMessage", { message:message,userId:userId });
             console.log("Message sent!");
+            setMessage('')
         } else {
             console.log("Socket is not connected.");
         }
