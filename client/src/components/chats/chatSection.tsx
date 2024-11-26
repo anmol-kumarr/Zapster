@@ -95,9 +95,9 @@ const ChatSection = () => {
         }
     }, [userId])
     useEffect(() => {
-        console.log("messages", messages)
-
-    }, [messages])
+        const conversationAvail = conversations.filter((conversation) => conversation.friendId === userId)
+        setMessages(conversationAvail[0]?.messages)
+    }, [conversations])
 
 
     return (

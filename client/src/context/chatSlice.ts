@@ -55,20 +55,23 @@ const chatSlice = createSlice({
             state.conversations.push(action.payload)
         },
         addMessage: (state, action: PayloadAction<Message>) => {
-            const findOne = state.conversations.find(
-                (conversation) => conversation._id === action.payload.conversation
-            );
+            state.conversations = state.conversations.map((conversation) => {
+                // If the conversation ID matches, add the new message
+                if (conversation._id === action.payload.conversation) {
+                    return {
+                        ...conversation,
+                        messages: [...conversation.messages, action.payload],
+                    };
+                }
 
-            if (findOne) {
-                
-                findOne.messages.push(action.payload);
-            }
+                return conversation;
+            })
+
         }
-
     }
 })
 
 
-export const { addFriends, addConversation,addMessage } = chatSlice.actions
+export const { addFriends, addConversation, addMessage } = chatSlice.actions
 
 export default chatSlice.reducer

@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
 
         const findConversation = await Conversation.findOne({ participants: { $all: [senderId, receiverId] } })
 
-        if (findConversation) {
+        if (findConversation && data.message) {
             const message = new Message({
                 senderId: senderId,
                 content: data?.message,
@@ -68,6 +68,7 @@ io.on('connection', (socket) => {
                 io.to(socket.id).emit('errorMessage', 'Something went wrong')
             }
 
+
             if (toSend) {
                 console.log(toSend)
                 io.to(toSend).emit('receiveMessage', newMessage)
@@ -83,3 +84,15 @@ io.on('connection', (socket) => {
         console.log('user disconnected', socket.id)
     })
 })
+
+
+// const newMessage={
+//     content: data.message,
+//     conversation: "67459e90d6f3e40495eb0952",
+//     createdAt: "2024-11-26T15:30:50.595Z",
+//     receiverId: "6741a5b4ae008673a35fe251",
+//     senderId: "6741a5c7ae008673a35fe254",
+//     updatedAt: "2024-11-26T15:30:50.595Z",
+//     __v: 0,
+//     _id: "6745e9aa487f8a36f8da589b",
+// }
