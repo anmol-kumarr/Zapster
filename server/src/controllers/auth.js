@@ -111,7 +111,7 @@ export const SignUp = async (req, res) => {
             password: hashedPassword,
             gender,
             email,
-            friends:[],
+            friends: [],
             profilePicture: gender === 'Male' ? boyPic : girlPic
         })
 
@@ -293,35 +293,37 @@ export const insertData = async (req, res) => {
                 message: "Password and Confirm Password do not match"
             })
         }
-        const emailExists = await User.findOne({ email })
-        if (emailExists) {
-            return res.status(400).json({
-                success: false,
-                message: "Email already exists"
+        console.log('password', password)
+        console.log('confirmPassword', confirmPassword)
+            const emailExists = await User.findOne({ email })
+            if (emailExists) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Email already exists"
+                })
+            }
+
+            const boyPic = `https://avatar.iran.liara.run/public/boy?username=${userName}`
+            const girlPic = `https://avatar.iran.liara.run/public/girl?username=${userName}`
+
+            const hashedPassword = await bcrypt.hash(password, 12)
+
+            const newUser = new User({
+                fullName,
+                userName,
+                password: hashedPassword,
+                gender,
+                email,
+                friends:[],
+                profilePicture: gender === 'Male' ? boyPic : girlPic
             })
-        }
-
-        const boyPic = `https://avatar.iran.liara.run/public/boy?username=${userName}`
-        const girlPic = `https://avatar.iran.liara.run/public/girl?username=${userName}`
-
-        const hashedPassword = await bcrypt.hash(password, 12)
-
-        const newUser = new User({
-            fullName,
-            userName,
-            password: hashedPassword,
-            gender,
-            email,
-            friends:[],
-            profilePicture: gender === 'Male' ? boyPic : girlPic
-        })
 
 
-        await newUser.save()
+            await newUser.save()
 
-        return res.status(201).json({
-            success:true
-        })
+            return res.status(201).json({
+                success:true
+            })
     } catch (err) {
         console.log(err)
         return res.status(500).json({

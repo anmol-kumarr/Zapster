@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import User from '../models/user.model.js'
+import Conversation from '../models/conversation.model.js'
 
 export const userData = async (req, res) => {
     try {
@@ -108,7 +109,11 @@ export const addFriends = async (req, res) => {
             { $push: { friends: myId } },
             { new: true, session }
         )
-
+        const participants=[userId,myId].sort()
+        await Conversation.create({
+            participants,
+            messages:[]
+        })
 
         await session.commitTransaction();
 

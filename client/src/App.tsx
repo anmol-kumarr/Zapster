@@ -16,6 +16,7 @@ import CloseRoute from './routes/closeRoute'
 
 import SearchSection from './components/chats/searchSection'
 import SearchProfile from './components/chats/searchProfile'
+import { useSocket } from './socket/socket'
 
 interface AuthValue {
   userName: string,
@@ -26,28 +27,39 @@ interface AuthValue {
   password?: null,
   validUpto?: Date
 }
+
+
 function App() {
 
-  
+
   useEffect(() => {
     const authValue: AuthValue = JSON.parse(localStorage.getItem('zapster') || '{}')
-    
-    
-    
+
+
+
     if (authValue.validUpto && new Date(authValue.validUpto) < new Date()) {
       localStorage.removeItem('zapster')
     }
-    
-    
+
+
   }, [])
 
+  const { socket, isConnected } = useSocket()
 
 
-  
-  
-  
-  
-  
+  useEffect(() => {
+    socket?.on('receiveMessage', (data) => {
+      console.log(data)
+    })
+  }, [isConnected, socket])
+
+
+
+
+
+
+
+
   return (
     <div>
       <Routes>

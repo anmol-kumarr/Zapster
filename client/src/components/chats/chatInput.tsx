@@ -16,9 +16,7 @@ const ChatInput: React.FC = () => {
     const auth = useSelector((state: RootState) => state.auth.user);
     const { userId } = useParams();
 
-    socket?.on('receiveMessage',(data)=>{
-        console.log(data)
-    })
+
 
 
     const handleSubmit = (e: FormEvent) => {
