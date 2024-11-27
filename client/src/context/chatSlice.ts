@@ -51,17 +51,25 @@ const chatSlice = createSlice({
         },
         addConversation: (state, action: PayloadAction<Conversation>) => {
 
+            const findConversation = state.conversations.filter((conversation) => conversation._id === action.payload._id)
+            if (findConversation.length <= 0) {
+                state.conversations.push(action.payload)
+            }
 
-            state.conversations.push(action.payload)
         },
         addMessage: (state, action: PayloadAction<Message>) => {
             state.conversations = state.conversations.map((conversation) => {
                 // If the conversation ID matches, add the new message
-                if (conversation._id === action.payload.conversation) {
-                    return {
-                        ...conversation,
-                        messages: [...conversation.messages, action.payload],
-                    };
+
+                const findMessage = conversation.messages.filter(message => message._id === action.payload._id)
+                if (findMessage.length <= 0) {
+
+                    if (conversation._id === action.payload.conversation) {
+                        return {
+                            ...conversation,
+                            messages: [...conversation.messages, action.payload],
+                        };
+                    }
                 }
 
                 return conversation;

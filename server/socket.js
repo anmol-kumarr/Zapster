@@ -66,12 +66,14 @@ io.on('connection', (socket) => {
 
             if (!findConversation && newMessage) {
                 io.to(socket.id).emit('errorMessage', 'Something went wrong')
+
             }
 
 
             if (toSend) {
                 console.log(toSend)
                 io.to(toSend).emit('receiveMessage', newMessage)
+                io.to(socket.id).emit('receiveMessage',newMessage)
             }
         }
 

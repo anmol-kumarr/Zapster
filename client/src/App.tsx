@@ -51,6 +51,8 @@ function App() {
   const dispatch:Dispatch=useDispatch()
 
   useEffect(() => {
+    
+
     socket?.on('receiveMessage', (data) => {
       console.log(data)
       dispatch(addMessage(data))

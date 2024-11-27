@@ -6,6 +6,9 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { RootState } from "../../context/store";
 import { useSocket } from "../../socket/socket";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "redux";
+
 
 // ...existing code...
 
@@ -15,9 +18,10 @@ const ChatInput: React.FC = () => {
 
     const auth = useSelector((state: RootState) => state.auth.user);
     const { userId } = useParams();
+    const dispatch:Dispatch=useDispatch()
 
 
-
+    
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -26,6 +30,8 @@ const ChatInput: React.FC = () => {
             socket.emit("sendMessage", { message:message,userId:userId });
             console.log("Message sent!");
             setMessage('')
+            
+            
         } else {
             console.log("Socket is not connected.");
         }
