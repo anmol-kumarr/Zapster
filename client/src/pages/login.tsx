@@ -39,19 +39,19 @@ const Login: React.FC = () => {
     return (
         <div className="w-full h-screen">
 
-            <div className="w-11/12 mx-auto h-full flex items-center justify-evenly gap-5">
-                <div className="w-2/5">
+            <div className="w-11/12 mx-auto h-full flex items-center md:justify-evenly gap-5">
+                <div className="hidden md:w-2/5">
                     <img className="w-full h-full" src={LoginImage} alt="" />
                 </div>
-                <div className="w-2/5 ">
+                <div className="md:w-2/5 w-full">
 
-                    <div className="w-10/12 p-5  rounded-md border-[1px] border-gray-600" >
+                    <div className="w-full md:w-10/12 p-5 rounded-md border-[1px] border-gray-600" >
                         <div className="font-inter mb-3">
                             <h1 className="text-gray-700 text-2xl font-semibold">Welcome back</h1>
                             <p className="text-gray-700">Enter your details below</p>
 
                         </div>
-                        <div className="">
+                        <div className="w-full">
 
                             <TextField
                                 onChange={(e) => setLoginDetails(prev => ({ ...prev, email: e.target.value }))}

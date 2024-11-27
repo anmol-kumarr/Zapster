@@ -10,8 +10,8 @@ const ChatPage: React.FC = () => {
 
 
 
-            <div className="flex gap-7 w-11/12 mx-auto h-[calc(100vh-1rem)] ">
-                <div className="w-[5%] h-full">
+            <div className="relative md:flex md:gap-7 md:w-11/12 md:mx-auto md:h-[calc(100vh-1rem)] ">
+                <div className="fixed right-0 bottom-0 left-0 md:relative md:w-[5%] md:h-full">
 
                     <SideBar></SideBar>
 

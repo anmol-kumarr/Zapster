@@ -1,7 +1,10 @@
 import React from "react";
 import ChatInput from "./chatInput";
 import { Message } from "../../context/chatSlice";
-import MessageBox from "./messageBox";
+import { useSelector } from "react-redux";
+import { RootState } from "../../context/store";
+import { ReceiveMessage, SendMessage } from "./messageBox";
+
 
 
 
@@ -10,13 +13,18 @@ interface ChatBoxProps {
 }
 
 const ChatBox: React.FC<ChatBoxProps> = ({ messages }) => {
+    const userId = useSelector((state: RootState) => state.auth.user?._id)
     return (
-        <div className="flex flex-col justify-between rounded-md  h-[calc(100vh-4.5rem)]" >
-            <div className="overflow-y-scroll  p-2">
+        <div className="flex w-full flex-col justify-between rounded-md  h-[calc(100vh-4.5rem)]" >
+            <div className="overflow-y-scroll w-full  p-2">
                 {
                     messages?.map((message) => (
-                        <MessageBox key={message._id} message={message}></MessageBox>
-                        
+
+                        message.senderId !== userId ? (
+                            <ReceiveMessage key={message._id} message={message}></ReceiveMessage>
+                        ) : (
+                            <SendMessage key={message._id} message={message}></SendMessage>
+                        )
                     ))
                 }
             </div>

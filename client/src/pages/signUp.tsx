@@ -83,12 +83,12 @@ const SignUp: React.FC = () => {
         <div className="w-full h-screen">
 
             <div className="w-11/12 mx-auto h-full flex items-center justify-evenly gap-5">
-                <div className="w-2/5">
+                <div className="hidden md:w-2/5">
                     <img className="w-full h-full" src={signUpImage} alt="" />
                 </div>
-                <div className="w-2/5 ">
+                <div className="md:w-2/5 ">
 
-                    <div className="w-10/12 p-5  " >
+                    <div className="md:w-10/12 p-5 ">
                         <div className="font-inter mb-5">
                             <h1 className="text-gray-700 text-2xl font-semibold">Sign Up to Zapster </h1>
                             <p className="text-gray-700">Enter your details below</p>

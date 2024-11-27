@@ -85,6 +85,7 @@ export const getUserProfile = async (req, res) => {
 }
 
 
+
 export const addFriends = async (req, res) => {
     try {
         const { userId } = req.body

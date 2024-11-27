@@ -11,7 +11,7 @@ const SearchSection: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const userId = useParams()
 
-    
+
     const fetchUserDetails = async () => {
         setLoading(true)
 
@@ -28,8 +28,11 @@ const SearchSection: React.FC = () => {
     }
 
     useEffect(() => {
-        fetchUserDetails()
+        if (userId.userId) {
+            fetchUserDetails()
+        }
     }, [userId])
+
     return (
         <div className="flex w-full gap-5 ">
             <div className="w-1/3  mx-auto flex  flex-col items-center ">

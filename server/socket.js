@@ -73,8 +73,8 @@ io.on('connection', (socket) => {
             if (toSend) {
                 console.log(toSend)
                 io.to(toSend).emit('receiveMessage', newMessage)
-                io.to(socket.id).emit('receiveMessage',newMessage)
             }
+            io.to(socket.id).emit('receiveMessage',newMessage)
         }
 
 

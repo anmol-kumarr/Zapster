@@ -10,8 +10,10 @@ const SideBar: React.FC = () => {
     const location = useLocation().pathname.split('/')
     // console.log(location)
     return (
-        <div className="bg-themeBlue  text-3xl text-white h-full rounded-lg flex flex-col justify-between items-center">
-            <div className="flex flex-col gap-5 items-center py-5">
+        <div className="bg-themeBlue w-full text-3xl text-white md:h-full md:rounded-lg flex md:flex-col md:justify-between items-center">
+
+
+            <div className="flex md:flex-col gap-5 items-center justify-center py-5">
 
                 <Link to='home'>
                     <div className={`w-full cursor-pointer ${location.includes('home') ? 'border-l-2 border-white border-spacing-x-10' : ''}`}>
@@ -43,7 +45,9 @@ const SideBar: React.FC = () => {
 
 
             </div>
-            <div className="pb-5">
+
+
+            <div className="md:pb-5 ">
                 <TbLogout2></TbLogout2>
             </div>
         </div>

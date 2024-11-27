@@ -59,16 +59,22 @@ export const getMessage = async (req, res) => {
         const limit = parseInt(req.query.limit) || 10;
         const skip = (page - 1) * limit;
 
-
-
         const conversation = await Conversation.findOne({
             participants: { $all: [userToChat, userId] }
-        }).sort({ createdAt: -1 }).skip(skip).limit(limit).populate('messages')
+        }).populate({
+            path: 'messages',
+            options: {
+                sort: { createdAt: -1 }, // Sort messages by creation date (newest first)
+                skip: skip,             // Skip the specified number of messages
+                limit: limit            // Limit the number of messages returned
+            }
+        }
+        )
         const totalMessages = await Message.countDocuments({
             senderId: { $in: [userId, userToChat] },
             receiverId: { $in: [userId, userToChat] }
         });
-        
+
         const totalPages = Math.ceil(totalMessages / limit);
 
 
