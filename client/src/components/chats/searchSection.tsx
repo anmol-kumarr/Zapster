@@ -5,11 +5,23 @@ import { useLocation, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import apiConnector from "../../services/connector";
 import apiRoutes from "../../services/api";
+import SearchedProfileSection from "./searchedProfileSection";
+
+export interface SearchedProfile {
+    _id: string,
+    fullName: string,
+    userName: string,
+    profilePicture: string,
+    gender: string
+}
 const SearchSection: React.FC = () => {
 
     const [list, setList] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
     const userId = useParams()
+    const [searchedProfile, setSearchedProfile] = useState<SearchedProfile | null>(null)
+
+
 
 
     const fetchUserDetails = async () => {
@@ -20,6 +32,7 @@ const SearchSection: React.FC = () => {
             const response = await apiConnector({ method: "GET", url: api })
 
             console.log(response)
+            setSearchedProfile(response?.data?.data)
 
         } catch (err) {
             console.log(err)
@@ -48,10 +61,12 @@ const SearchSection: React.FC = () => {
                     }
                 </div>
             </div>
-            <div className="w-[calc(100%-10rem)] ">
-                <div>
+            <div className="w-[calc(100%-10rem)] h-full">
+                <div className="w-full h-full">
                     {
-                        !userId.userId ? <img src={SearchImage} alt="" /> : <>{userId.userId}</>
+                        !userId.userId ? <img src={SearchImage} alt="" /> : <>
+                            <SearchedProfileSection searchedProfile={searchedProfile}></SearchedProfileSection>
+                        </>
                     }
                 </div>
             </div>

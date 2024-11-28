@@ -9,7 +9,7 @@ const SearchResponseBox: React.FC<SearchProps> = ({ profilePicture, fullName, us
     
     const navigate: NavigateFunction = useNavigate()
     return (
-        <div onClick={() => navigate(`${_id}`)} className="cursor-pointer flex gap-2 px-3 py-2 items-center  w-full">
+        <div onClick={() => navigate(`${_id}`,{replace:true})} className="cursor-pointer flex gap-2 px-3 py-2 items-center  w-full">
             <div className="h-10 w-10 rounded-full">
                 <img className="h-full w-full" src={profilePicture} alt="" />
             </div>
