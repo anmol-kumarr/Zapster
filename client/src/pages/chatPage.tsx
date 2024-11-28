@@ -18,7 +18,7 @@ const ChatPage: React.FC = () => {
                 </div>
                 
 
-                <div className={`text-black ${location.includes('search') ||location.includes('chat')?'w-[calc(100%-10%)]':'w-[calc(100%-55%)]'}`}>
+                <div className="text-black w-[calc(100%-10%)]">
                     <Outlet></Outlet>
                 </div>
             </div>
@@ -27,3 +27,5 @@ const ChatPage: React.FC = () => {
     )
 }
 export default ChatPage
+
+// ${location.includes('search') ||location.includes('chat')?'w-[calc(100%-10%)]':'w-[calc(100%-55%)]'}`
