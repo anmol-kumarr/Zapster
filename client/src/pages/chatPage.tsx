@@ -6,11 +6,11 @@ import GroupSection from "../components/chats/groupSection"
 const ChatPage: React.FC = () => {
     const location=useLocation().pathname.split('/')
     return (
-        <div className="flex bg-bgBlue items-center h-screen">
+        <div className="flex   md:bg-bgBlue items-center md:h-screen">
 
 
 
-            <div className="relative md:flex md:gap-7 md:w-11/12 md:mx-auto md:h-[calc(100vh-1rem)] ">
+            <div className="relative flex w-full md:p-2 sm:p-0 justify-center md:gap-7 md:w-11/12 mx-auto md:h-[calc(100vh-1rem)] ">
                 <div className="fixed right-0 bottom-0 left-0 md:relative md:w-[5%] md:h-full">
 
                     <SideBar></SideBar>
@@ -18,7 +18,7 @@ const ChatPage: React.FC = () => {
                 </div>
                 
 
-                <div className="text-black w-[calc(100%-10%)]">
+                <div className="text-black w-full sm:w-[calc(100%-10%)]">
                     <Outlet></Outlet>
                 </div>
             </div>

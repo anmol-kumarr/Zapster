@@ -2,9 +2,10 @@ import React from "react"
 import { BsChatLeftTextFill } from "react-icons/bs"
 import { FaUserAlt } from "react-icons/fa"
 import { IoNotifications, IoSettingsSharp } from "react-icons/io5"
+import { useNavigate } from "react-router-dom"
 
 const SettingsSideBar: React.FC = () => {
-
+    const navigate=useNavigate()
     const sideBarData = [
         {
             icon: <FaUserAlt></FaUserAlt>,
@@ -32,7 +33,7 @@ const SettingsSideBar: React.FC = () => {
             <div className="h-full">
                 {
                     sideBarData.map((link) => (
-                        <div className="flex items-center">
+                        <div onClick={()=>navigate(`${link.link}`)} className="flex cursor-pointer items-center">
                             {link.icon}
                             {link.text}
                         </div>

@@ -8,17 +8,17 @@ export interface Message {
     receiverId: string,
     conversation: string
     content: string,
-    updatedAt: string,
-    createdAt: string,
+    updatedAt: string | Date,
+    createdAt: string | Date,
     _id: string
 }
 
-interface Conversation {
+export interface Conversation {
     participants: [string, string],
     messages: Message[],
     friendId: string,
-    updatedAt?: string,
-    createdAt?: string,
+    updatedAt?: string | Date,
+    createdAt?: string | Date,
     _id?: string,
     __v?: number
 }

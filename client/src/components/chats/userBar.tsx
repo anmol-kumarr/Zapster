@@ -26,8 +26,8 @@ const UserBar: React.FC = () => {
     }, [userId,allFriends])
 
     return (
-        <div className="flex bg-themeBlue text-white rounded-md justify-between py-2 px-4 items-center">
-            <div className="flex gap-2 items-center">
+        <div className="flex bg-themeBlue w-full text-white md:rounded-md justify-between py-2 px-4 items-center">
+            <div className="flex w-full gap-2 items-center">
 
                 <div className="overflow-hidden h-10 w-10 rounded-full">
                     <img className="w-full h-full" src={user?.profilePicture} alt="" />
