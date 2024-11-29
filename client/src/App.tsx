@@ -13,13 +13,15 @@ import Setting from './components/settings/setting'
 import HomePage from './pages/homePage'
 import { useEffect } from 'react'
 import CloseRoute from './routes/closeRoute'
-
+import { useMediaQuery } from 'usehooks-ts'
 import SearchSection from './components/chats/searchSection'
 import SearchProfile from './components/chats/searchProfile'
 import { useSocket } from './socket/socket'
 import { Dispatch } from 'redux'
 import { useDispatch } from 'react-redux'
 import { addMessage, Message } from './context/chatSlice'
+import ChatBox from './components/chats/chatBox'
+import MobileChatPage from './components/chats/mobileChatPage'
 
 interface AuthValue {
   userName: string,
@@ -48,10 +50,10 @@ function App() {
   }, [])
 
   const { socket, isConnected } = useSocket()
-  const dispatch:Dispatch=useDispatch()
+  const dispatch: Dispatch = useDispatch()
 
   useEffect(() => {
-    
+
 
     socket?.on('receiveMessage', (data) => {
       console.log(data)
@@ -61,6 +63,10 @@ function App() {
 
   }, [isConnected, socket])
 
+  const width = useMediaQuery('(min-width: 768px)')
+  // useEffect(() => {
+  console.log(width)
+  // },[matches])
 
 
 
@@ -98,12 +104,21 @@ function App() {
           }>
         </Route>
 
-        <Route path='/user' element={
+        {/* <Route path='/user' element={
           <CloseRoute>
 
             <ChatPage></ChatPage>
           </CloseRoute>
+        }> */}
+
+
+        <Route path='/user' element={
+          // <CloseRoute>
+          <ChatPage></ChatPage>
+          // </CloseRoute>
         }>
+
+
 
           <Route
             path='home'
@@ -111,10 +126,20 @@ function App() {
           ></Route>
 
 
-          <Route
-            path='chat/:userId?' element={<ChatSection></ChatSection>} >
 
-          </Route>
+          {width ? (
+            <>
+              <Route path="chat" element={<ChatSection />} />
+              <Route path="chat/:userId" element={<ChatSection />} />
+            </>
+          ) : (
+            <>
+              <Route path="chat" element={<ChatSection />} />
+              <Route path="chat/:userId" element={<MobileChatPage></MobileChatPage>} />
+            </>
+          )}
+
+
 
 
 
