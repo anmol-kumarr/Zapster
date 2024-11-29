@@ -12,6 +12,20 @@ import { RootState } from "../../context/store"
 import ChatBox from "./chatBox"
 import { useParams } from "react-router-dom"
 import ChatImage from '../../assets/message-section.svg'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const ChatSection = () => {
 
     const dispatch: Dispatch = useDispatch()
@@ -50,72 +64,77 @@ const ChatSection = () => {
         }
     }, [])
 
-
-    const getConversation = async () => {
-        toast.loading('Loading')
-        try {
-            const api: string = `${apiRoutes.getConversation}/${userId}`
-
-            const response = await apiConnector({ method: "GET", url: api })
-
-            const { data: { message, ...restOfData } } = response?.data;
-
-
-            dispatch(addConversation({ ...restOfData, friendId: userId }))
-
-            setMessages(response?.data?.data?.messages)
-
-
-            toast.dismiss()
-        } catch (err) {
-            toast.dismiss()
-            toast.error("something went wrong")
-
-            console.log(err)
-        }
-    }
-
-
     useEffect(() => {
         if (userId) {
 
             setShowChat(true)
-            const conversationAvail = conversations.filter((conversation) => conversation.friendId === userId)
-
-            // console.log('conversationAvail:', conversationAvail)
-
-            if (conversationAvail.length <= 0) {
-
-                getConversation()
-                setMessages(conversationAvail[0]?.messages)
-            }
         }
-        else {
-            setShowChat(false)
-        }
+        else setShowChat(false)
     }, [userId])
-    useEffect(() => {
-        const conversationAvail = conversations.filter((conversation) => conversation.friendId === userId)
-        setMessages(conversationAvail[0]?.messages)
-    }, [conversations,userId])
+
+
+    // const getConversation = async () => {
+    //     toast.loading('Loading')
+    //     try {
+    //         const api: string = `${apiRoutes.getConversation}/${userId}`
+
+    //         const response = await apiConnector({ method: "GET", url: api })
+
+    //         const { data: { message, ...restOfData } } = response?.data;
+
+
+    //         dispatch(addConversation({ ...restOfData, friendId: userId }))
+
+    //         setMessages(response?.data?.data?.messages)
+
+
+    //         toast.dismiss()
+    //     } catch (err) {
+    //         toast.dismiss()
+    //         toast.error("something went wrong")
+
+    //         console.log(err)
+    //     }
+    // }
+
+
+    // useEffect(() => {
+    //     if (userId) {
+
+    //         setShowChat(true)
+    //         const conversationAvail = conversations.filter((conversation) => conversation.friendId === userId)
+
+    //         // console.log('conversationAvail:', conversationAvail)
+
+    //         if (conversationAvail.length <= 0) {
+
+    //             getConversation()
+    //             setMessages(conversationAvail[0]?.messages)
+    //         }
+    //     }
+    //     else {
+    //         setShowChat(false)
+    //     }
+    // }, [userId])
+
 
 
     return (
         <div className="flex gap-5 h-full  ">
-            <div className="w-[25%]">
+            <div className="sm:w-[25%] w-full">
                 <GroupSection></GroupSection>
             </div>
-            <div className=" rounded-md bg-white w-[calc(100%-30%)] shadow-[0px_0px_4px_#79C5EF]">
+            <div className=" hidden sm:block rounded-md bg-white w-[calc(100%-30%)] md:shadow-[0px_0px_4px_#79C5EF]">
                 {
                     showChat === true ? (
                         <>
                             <UserBar></UserBar>
 
-                            <ChatBox messages={messages}></ChatBox>
+                            <ChatBox></ChatBox>
 
                         </>
                     ) : (
-                        <div className="h-[calc(100vh-1rem)]">
+                        <div className="hidden sm:block h-[calc(100vh-1rem)]">
 
                             <img className="h-full w-full" src={ChatImage} alt="" />
 
