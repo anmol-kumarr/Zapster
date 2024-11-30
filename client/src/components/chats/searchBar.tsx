@@ -57,7 +57,7 @@ const SearchBar: React.FC<SearchBar> = ({ setList }) => {
             <div className="flex rounded-lg overflow-hidden px-2 items-center gap-1 shadow-[1px_1px_5px_#79C5EF]">
                 <p className="-mb-[1px] text-textGrey text-xl"><IoSearch></IoSearch></p>
                 <div>
-                    <input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} className="border-none outline-none p-2" type="text" placeholder="Search" id="search" />
+                    <input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} className=" p-3 px-3 md:px-0  border-none outline-none md:p-2" type="text" placeholder="Search" id="search" />
                 </div>
             </div>
 

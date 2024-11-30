@@ -10,7 +10,7 @@ interface SearchProfileSectionProps {
 const SearchedProfileSection: React.FC<SearchProfileSectionProps> = ({ searchedProfile }) => {
     console.log(searchedProfile)
     return (
-        <div className="w-full h-full rounded-md bg-[#eff6fcbb] shadow-[0px_0px_4px_#e2ccff] px-5">
+        <div className="w-full h-full rounded-md bg-[#eff6fcbb] md:shadow-[0px_0px_4px_#e2ccff] px-5">
             <div className="py-5 w-full  flex gap-5 items-center justify-center">
                 <div className="w-1/6 flex justify-center items-center">
 

@@ -13,16 +13,23 @@ const SideBar: React.FC = () => {
         <div className="bg-themeBlue w-full sm:text-3xl text-3xl text-white md:h-full md:rounded-lg flex md:flex-col md:justify-between md:items-center items-center">
 
 
-            <div className="w-full  flex md:flex-col gap-5 items-center md:justify-center justify-around md:py-5 pt-3 pb-3 px-2 sm:px-0">
+            <div className="w-full  flex md:flex-col gap-5 items-center md:justify-center justify-around md:py-5 pb-3 pt-3  px-2 sm:px-0">
 
                 <Link to='home'>
                     <div className={`w-full cursor-pointer ${location.includes('home') ? 'border-l-2 border-white border-spacing-x-10' : ''}`}>
                         <GoHomeFill></GoHomeFill>
                     </div>
                 </Link>
+
+
                 <Link to='chat'>
                     <div className="cursor-pointer">
                         <BsChatSquareDotsFill></BsChatSquareDotsFill>
+                    </div>
+                </Link>
+                <Link to='search'>
+                    <div className="cursor-pointer">
+                        <IoSearch></IoSearch>
                     </div>
                 </Link>
                 <Link to='notification'>
@@ -35,16 +42,12 @@ const SideBar: React.FC = () => {
                         <IoMdSettings></IoMdSettings>
                     </div>
                 </Link>
-                <Link to='search'>
-                    <div className="cursor-pointer">
-                        <IoSearch></IoSearch>
-                    </div>
-                </Link>
 
 
-                <div className="md:pb-5 block md:hidden">
+
+                {/* <div className="md:pb-5 block md:hidden">
                     <TbLogout2></TbLogout2>
-                </div>
+                </div> */}
 
             </div>
 

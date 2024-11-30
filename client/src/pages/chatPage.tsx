@@ -18,7 +18,7 @@ const ChatPage: React.FC = () => {
                 </div>
                 
 
-                <div className="text-black w-full sm:w-[calc(100%-10%)]">
+                <div className="text-black w-full md:w-[calc(100%-10%)]">
                     <Outlet></Outlet>
                 </div>
             </div>

@@ -28,7 +28,7 @@ const GroupSection: React.FC = () => {
     const friends = useSelector((state: RootState) => state.chat.friends)
     return (
         // md:h-[calc(100vh-1rem)]
-        <div id="group-section" className="w-full overflow-y-scroll md:bg-white shadow-[0px_0px_4px_#79C5EF] rounded-md min-h-[480px] h-[calc(100vh-8rem)] md:h-full ">
+        <div id="group-section" className="w-full overflow-y-scroll md:bg-white md:shadow-[0px_0px_4px_#79C5EF] rounded-md min-h-[480px] h-[calc(100vh-8rem)] md:h-full ">
             <div>
                 <SearchFromList></SearchFromList>
             </div>

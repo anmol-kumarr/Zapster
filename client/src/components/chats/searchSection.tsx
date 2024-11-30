@@ -48,7 +48,7 @@ const SearchSection: React.FC = () => {
 
     return (
         <div className="flex w-full gap-5 ">
-            <div className="w-1/3  mx-auto flex  flex-col items-center ">
+            <div className="md:w-1/3 w-full  mx-auto flex  flex-col items-center ">
 
                 <div className="w-full bg-white">
 
@@ -61,8 +61,8 @@ const SearchSection: React.FC = () => {
                     }
                 </div>
             </div>
-            <div className="w-[calc(100%-10rem)] h-full">
-                <div className="w-full h-full">
+            <div className="hidden md:block w-[calc(100%-10rem)] h-full">
+                <div className="w-full h-full ">
                     {
                         !userId.userId ? <img src={SearchImage} alt="" /> : <>
                             <SearchedProfileSection searchedProfile={searchedProfile}></SearchedProfileSection>
