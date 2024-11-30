@@ -1,6 +1,7 @@
 import React from "react"
 import { SearchProps } from "./searchBar"
 import { NavigateFunction, replace, useNavigate } from "react-router-dom"
+import { Button } from "@mui/material"
 
 
 
@@ -16,6 +17,7 @@ const FriendBox: React.FC<SearchProps> = ({ profilePicture, fullName, userName, 
                 <p className="font-inter text-sm">{userName}</p>
                 <p className="font-inter text-xs text-textBlack ">{fullName}</p>
             </div>
+        
         </div>
     )
 }
