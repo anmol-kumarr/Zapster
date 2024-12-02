@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
+import Notification from "./notification.model.js";
 
 const userSchema = new mongoose.Schema({
     fullName: {
@@ -27,6 +28,24 @@ const userSchema = new mongoose.Schema({
     profilePicture: {
         type: String,
     },
+    notifications: [
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Notification',
+        }
+    ],
+    friendRequest: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    requestSend: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
     friends: [
         {
 

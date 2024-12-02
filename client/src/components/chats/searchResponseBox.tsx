@@ -9,8 +9,13 @@ const SearchResponseBox: React.FC<SearchProps> = ({ profilePicture, fullName, us
 
 
     const navigate: NavigateFunction = useNavigate()
+
+    const handleSendRequest=()=>{
+        
+    }
     return (
-        <div onClick={() => navigate(`${_id}`, { replace: true })} className="cursor-pointer flex gap-2 px-3 py-2 items-center justify-between w-full">
+        // onClick={() => navigate(`${_id}`, { replace: true })}
+        <div  className="cursor-pointer flex gap-2 px-3 py-2 items-center justify-between w-full">
             <div className="flex gap-2">
 
                 <div className="h-10 w-10 rounded-full">
@@ -22,7 +27,7 @@ const SearchResponseBox: React.FC<SearchProps> = ({ profilePicture, fullName, us
                 </div>
             </div>
             <div>
-                <Button sx={{ textTransform: 'none' ,backgroundColor:'#6E00FF'}} variant="contained" >Add friend</Button>
+                <Button onClick={handleSendRequest} sx={{ padding:'2px 5px',textTransform: 'none' ,backgroundColor:'#6E00FF'}} variant="contained" >Add friend</Button>
             </div>
         </div>
     )
