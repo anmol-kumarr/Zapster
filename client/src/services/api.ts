@@ -11,7 +11,8 @@ interface Api {
     getUsersList: string,
     getUserProfile: string,
     getFriends: string,
-    getConversation:string
+    getConversation:string,
+    getAllRequestAndNotification:string
 }
 
 
@@ -28,7 +29,8 @@ const apiRoutes: Api = {
     getFriends: VITE_BASE_URL+'/user/get-friends',
 
 
-    getConversation:VITE_BASE_URL+'/message'
+    getConversation:VITE_BASE_URL+'/message',
+    getAllRequestAndNotification:VITE_BASE_URL+'/notification/getNotifications'
 
 }
 

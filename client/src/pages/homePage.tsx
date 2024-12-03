@@ -4,14 +4,22 @@ import { useSelector } from "react-redux";
 import Welcome from '../assets/welcome.svg'
 import { Link, Navigate, NavigateFunction, useNavigate } from "react-router-dom";
 import { RootState } from "../context/store";
+import { getAllNotification } from "../services/operation/notification";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "redux";
 const HomePage: React.FC = () => {
-    const  navigate:NavigateFunction=useNavigate()
-    useEffect(()=>{
-        setTimeout(() => {
-            navigate('/user/home')
-        }, 3000);
-    },[])
+    const navigate: NavigateFunction = useNavigate()
     const isAuthenticated: boolean = useSelector((state: RootState) => state.auth.isAuthenticated)
+    const dispatch:Dispatch=useDispatch()
+    useEffect(() => {
+        if(isAuthenticated){
+            getAllNotification({dispatch,navigate})
+        }
+
+        // setTimeout(() => {
+        //     navigate('/user/home')
+        // }, 3000);
+    }, [])
     return (
         <div className="w-11/12 mx-auto h-screen">
             <div className="h-3/5">
@@ -35,7 +43,7 @@ const HomePage: React.FC = () => {
                                 variant="contained"
                             >SignUp</Button>
                         </Link>
-                    </div>):(
+                    </div>) : (
                         <h3 className="font-inter text-center">Loading...</h3>
                     )
                 }
