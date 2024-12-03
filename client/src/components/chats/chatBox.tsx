@@ -116,6 +116,7 @@ const ChatBox: React.FC = () => {
 
     useEffect(() => {
         if (conversationRef.current) {
+            console.log(conversationRef)
             conversationRef.current.scrollTop = conversationRef.current.scrollHeight
         }
         // console.log(typeof (messages[0]?.createdAt))
