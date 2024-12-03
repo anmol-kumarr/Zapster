@@ -60,6 +60,9 @@ function App() {
       dispatch(addMessage(data))
     })
 
+    socket?.on("friendRequestReceive", (data) => {
+      console.log(data)
+    })
 
   }, [isConnected, socket])
 
@@ -67,7 +70,6 @@ function App() {
   // useEffect(() => {
   console.log(width)
   // },[matches])
-
 
 
 
@@ -113,9 +115,9 @@ function App() {
 
 
         <Route path='/user' element={
-          // <CloseRoute>
-          <ChatPage></ChatPage>
-          // </CloseRoute>
+          <CloseRoute>
+            <ChatPage></ChatPage>
+          </CloseRoute>
         }>
 
 

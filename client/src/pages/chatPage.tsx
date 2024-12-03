@@ -1,10 +1,26 @@
-import React from "react"
+import React, { useEffect } from "react"
 import SideBar from "../components/chats/sideBar"
 import { Outlet, useLocation } from "react-router-dom"
 import GroupSection from "../components/chats/groupSection"
+import { useSelector } from "react-redux"
+import { RootState } from "../context/store"
+import { getAllNotification } from "../services/operation/notification"
+import { Dispatch } from "redux"
+import { useDispatch } from "react-redux"
 
 const ChatPage: React.FC = () => {
-    const location=useLocation().pathname.split('/')
+    const location = useLocation().pathname.split('/')
+    const { isAuthenticated } = useSelector((state: RootState) => state.auth)
+    const notification = useSelector((state: RootState) => state.notification)
+    const dispatch: Dispatch = useDispatch()
+    useEffect(() => {
+        if (isAuthenticated && notification.notification.length === 0) {
+            getAllNotification({ dispatch })
+        }
+    }, [])
+
+
+
     return (
         <div className="flex   md:bg-bgBlue items-center md:h-screen">
 
@@ -16,7 +32,7 @@ const ChatPage: React.FC = () => {
                     <SideBar></SideBar>
 
                 </div>
-                
+
 
                 <div className="text-black w-full md:w-[calc(100%-10%)]">
                     <Outlet></Outlet>

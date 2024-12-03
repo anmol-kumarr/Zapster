@@ -35,7 +35,7 @@ const GroupSection: React.FC = () => {
             <div>
 
                 {
-                    friends.length > 0 && friends.map((friend) => (
+                    friends?.length > 0 && friends.map((friend) => (
                         <React.Fragment key={friend._id}>
                             <FriendBox {...friend}></FriendBox>
                             <hr />

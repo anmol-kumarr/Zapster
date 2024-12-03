@@ -60,7 +60,7 @@ const ChatSection = () => {
 
     useEffect(() => {
         if (allFriends.length === 0) {
-            getFriends()
+            // getFriends()
         }
     }, [])
 
