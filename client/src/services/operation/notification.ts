@@ -25,7 +25,7 @@ export const getAllNotification = async ({ navigate, dispatch }: GetAllNotificat
 
             navigate('/user/chat')
         }
-        console.log(response)
+        // console.log(response)
     } catch (err) {
         console.log(err)
         toast.error("Something went wrong")

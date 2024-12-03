@@ -14,20 +14,21 @@ const SearchResponseBox: React.FC<SearchProps> = ({ profilePicture, fullName, us
 
     const navigate: NavigateFunction = useNavigate()
     const { socket, isConnected } = useSocket()
-    const userId=useSelector((state:RootState)=>state.auth.user?._id)
-    const myName=useSelector((state:RootState)=>state.auth.user?.userName)
+    const userId = useSelector((state: RootState) => state.auth.user?._id)
+    const myName = useSelector((state: RootState) => state.auth.user?.userName)
+    const { requestSent, friendRequest } = useSelector((state: RootState) => state.notification)
 
     const handleSendRequest = () => {
         if (isConnected && userId && _id) {
-            const data={
-                message:`${myName} wants to add you as a friend`,
-                userId:userId,
-                friendId:_id
+            const data = {
+                message: `${myName} wants to add you as a friend`,
+                userId: userId,
+                friendId: _id
             }
-            socket?.emit('sendNotification',data)
-            
+            socket?.emit('sendNotification', data)
+
         }
-        else{
+        else {
             toast.error('Something went wrong')
         }
     }
@@ -45,7 +46,17 @@ const SearchResponseBox: React.FC<SearchProps> = ({ profilePicture, fullName, us
                 </div>
             </div>
             <div>
-                <Button onClick={handleSendRequest} sx={{ padding: '2px 5px', textTransform: 'none', backgroundColor: '#6E00FF' }} variant="contained" >Add friend</Button>
+                {
+                    _id && requestSent?.includes(_id) && (<Button sx={{ padding: '2px 5px', textTransform: 'none',borderColor: '#6E00FF',color:'#6E00FF'}} variant="outlined" >Sent</Button>)
+
+                }
+                {
+                    _id && friendRequest.includes(_id) && <Button onClick={handleSendRequest} sx={{ padding: '2px 5px', textTransform: 'none', backgroundColor: '#6E00FF' }} variant="contained" >Accept</Button>
+                }
+                {
+                    _id && !friendRequest.includes(_id) && !requestSent.includes(_id) && <Button onClick={handleSendRequest} sx={{ padding: '2px 5px', textTransform: 'none', backgroundColor: '#6E00FF' }} variant="contained" >Accept</Button>
+                }
+
             </div>
         </div>
     )

@@ -7,7 +7,7 @@ interface FriendRequestProp{
 }
 
 export const FriendRequest:React.FC<FriendRequestProp>=({notification})=>{
-    console.log(notification)
+    // console.log(notification)
     return (    
         <div className="flex items-center gap-3 mx-2">
             <div className="w-14 h-14 rounded-full overflow-hidden">

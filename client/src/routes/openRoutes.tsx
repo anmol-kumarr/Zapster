@@ -7,6 +7,7 @@ interface OpenRoutesProps {
     children: React.ReactNode
 }
 
+
 const OpenRoutes: React.FC<OpenRoutesProps> = ({ children }) => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
     console.log(isAuthenticated)
