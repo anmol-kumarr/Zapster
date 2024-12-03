@@ -3,6 +3,8 @@ import http from 'http'
 import { Server } from 'socket.io'
 import Message from './src/models/message.model.js'
 import Conversation from './src/models/conversation.model.js'
+import Notification from './src/models/notification.model.js'
+import User from './src/models/user.model.js'
 
 
 export const app = express()
@@ -74,7 +76,7 @@ io.on('connection', (socket) => {
                 console.log(toSend)
                 io.to(toSend).emit('receiveMessage', newMessage)
             }
-            io.to(socket.id).emit('receiveMessage',newMessage)
+            io.to(socket.id).emit('receiveMessage', newMessage)
         }
 
 
@@ -82,9 +84,51 @@ io.on('connection', (socket) => {
 
 
     })
+
+
+    socket.on('sendNotification', async (data) => {
+        console.log(data)
+        const toSend = connectedUser[data.friendId]
+        // const senderId=socketToUser[]
+        const createNotification = await Notification.create({
+            userRequested: data.userId,
+            isSeen: false,
+            notificationType: 'Request',
+            userId: data?.friendId
+        })
+
+        const updateFriend = await User.findByIdAndUpdate(data?.friendId, {
+            $push: {
+                notifications: createNotification?._id, friendRequest: data.userId
+            }
+
+        },{new:true}).select('notifications').populate({
+            path:'notifications',
+            populate:{
+                path:'userRequested',
+                select:'userName _id fullName profilePicture'
+            }
+        })
+        
+
+        const updateUser = await User.findByIdAndUpdate(data?.userId, {
+            $push: {
+                notifications: createNotification?._id, requestSend: data.friendId
+            }
+        })
+
+        if (toSend) {
+            io.to(toSend).emit('friendRequestReceive',updateFriend)
+        }
+    })
+
+    
+
     socket.on('disconnect', () => {
         console.log('user disconnected', socket.id)
     })
+
+
 })
 
 
