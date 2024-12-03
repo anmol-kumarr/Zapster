@@ -92,6 +92,7 @@ io.on('connection', (socket) => {
         // const senderId=socketToUser[]
         const createNotification = await Notification.create({
             userRequested: data.userId,
+            message: data.message,
             isSeen: false,
             notificationType: 'Request',
             userId: data?.friendId
@@ -109,14 +110,15 @@ io.on('connection', (socket) => {
                 select:'userName _id fullName profilePicture'
             }
         })
-        
+
 
         const updateUser = await User.findByIdAndUpdate(data?.userId, {
             $push: {
                 notifications: createNotification?._id, requestSend: data.friendId
             }
         })
-
+        // updateFriend.toObject()
+        // updateFriend.
         if (toSend) {
             io.to(toSend).emit('friendRequestReceive',updateFriend)
         }

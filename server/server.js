@@ -7,6 +7,7 @@ import cors from 'cors'
 import messageRoutes from './src/routes/message.routes.js'
 import authRoutes from './src/routes/auth.routes.js'
 import userRoutes from './src/routes/user.routes.js'
+import notificationRoutes from './src/routes/notification.routes.js'
 import { app, server } from './socket.js';
 
 
@@ -28,6 +29,7 @@ server.listen(process.env.PORT || 4001,()=>{
 app.use('/api/v1/auth',authRoutes)
 app.use('/api/v1/message',messageRoutes)
 app.use('/api/v1/user',userRoutes)
+app.use('/api/v1/notification',notificationRoutes)
 
 app.get('/',(req,res)=>{
     res.status(200).json({
