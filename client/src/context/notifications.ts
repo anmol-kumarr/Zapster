@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 
-interface RequestedUser {
+export interface RequestedUser {
     userName: string,
     fullName: string,
     profilePicture: string,
@@ -11,7 +11,7 @@ interface RequestedUser {
 }
 
 
-interface NotificationType {
+export interface NotificationType {
     createdAt: Date | string,
     updatedAt: Date | string,
     isSeen: boolean,

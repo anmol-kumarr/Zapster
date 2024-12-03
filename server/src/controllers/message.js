@@ -64,12 +64,14 @@ export const getMessage = async (req, res) => {
         }).populate({
             path: 'messages',
             options: {
+
                 sort: { createdAt: -1 }, // Sort messages by creation date (newest first)
                 skip: skip,             // Skip the specified number of messages
-                limit: limit            // Limit the number of messages returned
+                limit: limit,
+                // Limit the number of messages returned
             }
-        }
-        )
+        })
+        conversation.messages.reverse()
         const totalMessages = await Message.countDocuments({
             senderId: { $in: [userId, userToChat] },
             receiverId: { $in: [userId, userToChat] }

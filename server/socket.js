@@ -114,7 +114,7 @@ io.on('connection', (socket) => {
 
         const updateUser = await User.findByIdAndUpdate(data?.userId, {
             $push: {
-                notifications: createNotification?._id, requestSend: data.friendId
+                requestSend: data.friendId
             }
         })
         // updateFriend.toObject()
