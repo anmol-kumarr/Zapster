@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ChatInput from "./chatInput";
-import { addConversation, addFriends, Conversation, Message } from "../../context/chatSlice";
+import { addConversation, addFriends, addPaginationMessage, Conversation, Message } from "../../context/chatSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../context/store";
 import { ReceiveMessage, SendMessage } from "./messageBox";
@@ -31,27 +31,46 @@ const ChatBox: React.FC = () => {
     const conversationRef = useRef<HTMLDivElement>(null)
     const width = useMediaQuery('(min-width: 768px)')
     const [height, setHeight] = useState<number | null>(null)
+    const [page, setPage] = useState<number>(1)
+    const [loading, setLoading] = useState<boolean>(false)
 
 
     const getConversation = async () => {
         toast.loading('Loading')
+        const limit = 50
+
+
+        setLoading(true)
         try {
-            const api: string = `${apiRoutes.getConversation}/${userId}`
+            const api: string = `${apiRoutes.getConversation}/${userId}?page=${page}&limit=${limit}`
 
             const response = await apiConnector({ method: "GET", url: api })
 
             const { data: { messages, message, ...restOfData } } = response?.data;
+            console.log(response)
 
 
 
 
 
-            dispatch(addConversation({ ...restOfData, messages, friendId: userId }))
+            dispatch(addConversation({ ...restOfData, messages, friendId: userId, meta: response?.data?.meta }))
 
-            setMessages(response?.data?.data?.messages)
 
+            // setMessages(prev => prev ? [...response?.data?.data?.messages, ...prev] : [response?.data?.data?.messages])
+
+            // setPage(page => page + 1)
 
             toast.dismiss()
+            console.log(page)
+            if (page > 1) {
+                dispatch(addPaginationMessage({ messages, ...restOfData, friendId: userId, meta: response?.data?.meta }))
+                setMessages((prev) => [...response?.data?.data?.messages, ...prev])
+            } else {
+
+                setMessages(response?.data?.data?.messages)
+            }
+            setLoading(false)
+            // return response
         } catch (err) {
             toast.dismiss()
             toast.error("something went wrong")
@@ -59,7 +78,13 @@ const ChatBox: React.FC = () => {
             console.log(err)
         }
     }
+    useEffect(() => {
+        if (page > 1) {
+            getConversation()
+            // setLoading(false)
+        }
 
+    }, [page])
 
 
 
@@ -115,15 +140,51 @@ const ChatBox: React.FC = () => {
     }, [conversations, userId])
 
     useEffect(() => {
-        if (conversationRef.current) {
-            console.log(conversationRef)
+        if (conversationRef.current && !loading) {
+
             conversationRef.current.scrollTop = conversationRef.current.scrollHeight
         }
-        // console.log(typeof (messages[0]?.createdAt))
-        // console.log(messages.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)))
+
 
     }, [messages])
 
+    // scrollHeight is the total height of the element that is scrollable
+    // clientHeight is the height of the element that is visible
+    // scrollTop is the distance between top and the bottom
+    useEffect(() => {
+        const ref = conversationRef.current
+        const handleScroll = () => {
+            // console.log(conversations)
+            if (ref && conversations.length > 0) {
+
+                if (ref.scrollTop === 0) {
+                    const findPage = conversations.filter((conversation) => conversation.friendId === userId)[0]
+                    console.log('hello')
+                    console.log(findPage)
+                    if (findPage && findPage.meta && findPage?.meta?.totalPages > findPage?.meta?.currentPage) {
+                        setPage(prev => {
+                            const nextPage = prev + 1;
+                            return nextPage
+                        })
+
+                        console.log('hello2')
+
+
+                    }
+                }
+
+            }
+        }
+        if (ref && conversations) {
+            ref.addEventListener('scroll', handleScroll)
+        }
+
+        return () => {
+            if (ref) {
+                ref.removeEventListener('scroll', handleScroll)
+            }
+        }
+    }, [conversations])
 
     // useEffect(() => {
     //     if (width) {
