@@ -22,6 +22,7 @@ import { useDispatch } from 'react-redux'
 import { addMessage, Message } from './context/chatSlice'
 import ChatBox from './components/chats/chatBox'
 import MobileChatPage from './components/chats/mobileChatPage'
+import { pushNotification } from './context/notifications'
 
 interface AuthValue {
   userName: string,
@@ -62,6 +63,7 @@ function App() {
 
     socket?.on("friendRequestReceive", (data) => {
       console.log(data)
+      dispatch(pushNotification(data?.notifications[0]))
     })
 
   }, [isConnected, socket])

@@ -19,7 +19,8 @@ export interface NotificationType {
     userRequested: RequestedUser,
     notificationType: string,
     message: string,
-    _id: string
+    _id: string,
+    __v?: number
 
 }
 
@@ -48,9 +49,12 @@ const notificationSlice = createSlice({
         setData: (state, action: PayloadAction<InitialState>) => {
             if (state?.friendRequest?.length === 0 && state?.notification?.length === 0 && state?.requestSent?.length === 0) {
                 state.friendRequest = action.payload.friendRequest,
-                state.notification=action.payload.notification,
-                state.requestSent=action.payload.requestSent
+                    state.notification = action.payload.notification,
+                    state.requestSent = action.payload.requestSent
             }
+        },
+        pushNotification: (state, action) => {
+            state.notification.push(action.payload)
         },
         addNotification: (state, action: PayloadAction<NotificationType>) => {
             const findNotification = state.notification.filter((notification) => action.payload._id === notification._id)
@@ -60,12 +64,16 @@ const notificationSlice = createSlice({
         addFriendRequest: (state, action) => {
             state.friendRequest = action.payload
         },
-        addRequestSent:(state,action)=>{
-            state.requestSent=action.payload
+        addRequestSent: (state, action) => {
+            state.requestSent = action.payload
+        },
+        addOneRequestSend: (state, action) => {
+            const findDuplicate = state.notification.filter((notification) => notification._id === action.payload)
+            findDuplicate.length <= 0 && state.requestSent.push(action.payload)
         }
     }
 })
 
-export const { setData, addNotification,addFriendRequest,addRequestSent } = notificationSlice.actions
+export const { setData, addNotification, addFriendRequest, addRequestSent, addOneRequestSend, pushNotification } = notificationSlice.actions
 
 export default notificationSlice.reducer

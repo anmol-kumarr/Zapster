@@ -103,11 +103,11 @@ io.on('connection', (socket) => {
                 notifications: createNotification?._id, friendRequest: data.userId
             }
 
-        },{new:true}).select('notifications').populate({
-            path:'notifications',
-            populate:{
-                path:'userRequested',
-                select:'userName _id fullName profilePicture'
+        }, { new: true }).select('notifications').populate({
+            path: 'notifications',
+            populate: {
+                path: 'userRequested',
+                select: 'userName _id fullName profilePicture'
             }
         })
 
@@ -119,12 +119,14 @@ io.on('connection', (socket) => {
         })
         // updateFriend.toObject()
         // updateFriend.
+
         if (toSend) {
-            io.to(toSend).emit('friendRequestReceive',updateFriend)
+            io.to(toSend).emit('friendRequestReceive', updateFriend)
+            console.log(updateFriend)
         }
     })
 
-    
+
 
     socket.on('disconnect', () => {
         console.log('user disconnected', socket.id)

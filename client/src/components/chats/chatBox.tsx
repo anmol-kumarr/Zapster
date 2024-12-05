@@ -37,10 +37,10 @@ const ChatBox: React.FC = () => {
 
     const getConversation = async () => {
         toast.loading('Loading')
-        const limit = 50
+        const limit = 20
 
 
-        setLoading(true)
+
         try {
             const api: string = `${apiRoutes.getConversation}/${userId}?page=${page}&limit=${limit}`
 
@@ -63,14 +63,16 @@ const ChatBox: React.FC = () => {
             toast.dismiss()
             console.log(page)
             if (page > 1) {
+                // setLoading(true)
                 dispatch(addPaginationMessage({ messages, ...restOfData, friendId: userId, meta: response?.data?.meta }))
                 setMessages((prev) => [...response?.data?.data?.messages, ...prev])
             } else {
 
                 setMessages(response?.data?.data?.messages)
             }
-            setLoading(false)
+
             // return response
+            // setLoading(false)
         } catch (err) {
             toast.dismiss()
             toast.error("something went wrong")
@@ -82,6 +84,7 @@ const ChatBox: React.FC = () => {
         if (page > 1) {
             getConversation()
             // setLoading(false)
+
         }
 
     }, [page])
@@ -143,7 +146,9 @@ const ChatBox: React.FC = () => {
         if (conversationRef.current && !loading) {
 
             conversationRef.current.scrollTop = conversationRef.current.scrollHeight
-        }
+        } 
+
+
 
 
     }, [messages])
