@@ -16,29 +16,29 @@ const SideBar: React.FC = () => {
             <div className="w-full  flex md:flex-col gap-5 items-center md:justify-center justify-around md:py-5 pb-3 pt-3  px-2 sm:px-0">
 
                 <Link to='home'>
-                    <div className={`w-full cursor-pointer ${location.includes('home') ? 'border-l-2 border-white border-spacing-x-10' : ''}`}>
+                    <div className={`w-full cursor-pointer ${location.includes('home') ? 'text-[#D1A3FF]' : ''}`}>
                         <GoHomeFill></GoHomeFill>
                     </div>
                 </Link>
 
 
                 <Link to='chat'>
-                    <div className="cursor-pointer">
+                    <div  className={`w-full cursor-pointer ${location.includes('chat') ? 'text-[#D1A3FF]' : ''}`}>
                         <BsChatSquareDotsFill></BsChatSquareDotsFill>
                     </div>
                 </Link>
                 <Link to='search'>
-                    <div className="cursor-pointer">
+                    <div  className={`w-full cursor-pointer ${location.includes('search') ? 'text-[#D1A3FF]' : ''}`}>
                         <IoSearch></IoSearch>
                     </div>
                 </Link>
                 <Link to='notification'>
-                    <div className="cursor-pointer">
+                    <div  className={`w-full cursor-pointer ${location.includes('notification') ? 'text-[#D1A3FF]' : ''}`}>
                         <IoNotifications></IoNotifications>
                     </div>
                 </Link>
                 <Link to='setting'>
-                    <div className="cursor-pointer">
+                    <div  className={`w-full cursor-pointer ${location.includes('setting') ? 'text-[#D1A3FF]' : ''}`}>
                         <IoMdSettings></IoMdSettings>
                     </div>
                 </Link>

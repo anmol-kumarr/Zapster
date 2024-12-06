@@ -41,7 +41,7 @@ const SearchBar: React.FC<SearchBar> = ({ setList }) => {
 
 
     useEffect(() => {
-        console.log(searchResponse)
+        // console.log(searchResponse)
         if (searchResponse.length > 0) {
             setList(true)
         }
