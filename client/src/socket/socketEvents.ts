@@ -1,10 +1,18 @@
 import { Message } from "../context/chatSlice";
 
 // socketEvents.ts
+
+interface Data{
+    message:string,
+    userId:string,
+    friendId:string,
+    notificationId?:string
+}
 export interface ClientToServerEvents {
     sendMessage: (data: { message: string; userId: string }) => void;
     typing: (data: { isTyping: boolean }) => void;
     sendNotification:(data:{message:string,userId:string,friendId:string})=>void
+    acceptRequest:(data:Data)=>void
 }
 
 
@@ -16,6 +24,8 @@ export interface ServerToClientEvents {
     receiveMessage: (data: Message) => void;
     notification: (data: { title: string; body: string }) => void;
     friendRequestReceive:(data:any)=>void
+    friendAdded:(data:any)=>void
+    requestAccepted:(data:any)=>void
 }
 
 

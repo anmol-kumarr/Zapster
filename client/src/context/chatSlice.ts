@@ -12,11 +12,11 @@ export interface Message {
     createdAt: string | Date,
     _id: string
 }
-export interface Meta{
-    totalMessages:number,
-    currentPage:number,
-    totalPages:number,
-    perPage:number
+export interface Meta {
+    totalMessages: number,
+    currentPage: number,
+    totalPages: number,
+    perPage: number
 
 
 }
@@ -28,7 +28,7 @@ export interface Conversation {
     createdAt?: string | Date,
     _id?: string,
     __v?: number,
-    meta?:Meta
+    meta?: Meta
 }
 
 
@@ -57,6 +57,10 @@ const chatSlice = createSlice({
         addFriends: (state, action: PayloadAction<Auth[]>) => {
             state.friends = action.payload
         },
+        addSingleFriend: (state, action) => {
+            state.friends.push(action.payload)
+        },
+        
         addConversation: (state, action: PayloadAction<Conversation>) => {
 
             const findConversation = state.conversations.filter((conversation) => conversation._id === action.payload._id)
@@ -103,6 +107,6 @@ const chatSlice = createSlice({
 })
 
 
-export const { addFriends, addConversation, addMessage, addPaginationMessage } = chatSlice.actions
+export const { addFriends, addConversation, addMessage, addPaginationMessage,addSingleFriend } = chatSlice.actions
 
 export default chatSlice.reducer

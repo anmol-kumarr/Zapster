@@ -40,6 +40,18 @@ const SearchResponseBox: React.FC<SearchProps> = ({ profilePicture, fullName, us
         }
     }
 
+    const addFriendHandler = () => {
+        console.log('hello')
+        if (isConnected && userId && _id) {
+            const data = {
+                message: `${myName} accept your friend request`,
+                userId: userId,
+                friendId: _id
+            }
+            socket?.emit('acceptRequest', data)
+            console.log('hello')
+        }
+    }
 
 
     const renderActionButton = () => {
@@ -60,7 +72,7 @@ const SearchResponseBox: React.FC<SearchProps> = ({ profilePicture, fullName, us
         if (_id && friendRequest.includes(_id)) {
             console.log('hello lei')
             return (
-                <Button onClick={handleSendRequest} sx={{ padding: "2px 5px", textTransform: "none", backgroundColor: "#6E00FF" }} variant="contained">
+                <Button onClick={addFriendHandler} sx={{ padding: "2px 5px", textTransform: "none", backgroundColor: "#6E00FF" }} variant="contained">
                     Accept
                 </Button>
             );
@@ -101,7 +113,7 @@ const SearchResponseBox: React.FC<SearchProps> = ({ profilePicture, fullName, us
                 {
                     renderActionButton()
                 }
-
+                
             </div>
         </div>
     )

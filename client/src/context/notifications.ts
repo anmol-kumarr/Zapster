@@ -70,10 +70,35 @@ const notificationSlice = createSlice({
         addOneRequestSend: (state, action) => {
             const findDuplicate = state.notification.filter((notification) => notification._id === action.payload)
             findDuplicate.length <= 0 && state.requestSent.push(action.payload)
+        },
+        deleteNotification: (state, action) => {
+            state.notification = state.notification.filter((notification) => notification._id !== action.payload)
+        },
+        removeFriendRequest: (state, action) => {
+            state.friendRequest = state.friendRequest.filter((request) => request !== action.payload)
+        },
+        removeRequestSent: (state, action) => {
+            state.requestSent = state.requestSent.filter((sent) => sent !== action.payload)
         }
+
     }
 })
 
-export const { setData, addNotification, addFriendRequest, addRequestSent, addOneRequestSend, pushNotification } = notificationSlice.actions
+export const {
+    setData,
+    addNotification,
+    addFriendRequest,
+    addRequestSent,
+    addOneRequestSend,
+    pushNotification,
+    removeFriendRequest,
+    removeRequestSent,
+    deleteNotification
+
+
+
+
+
+} = notificationSlice.actions
 
 export default notificationSlice.reducer
