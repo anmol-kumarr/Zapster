@@ -69,13 +69,14 @@ function App() {
     socket?.on('friendAdded', (data) => {
       console.log(data)
       dispatch(addSingleFriend(data))
-        
+
     })
     socket?.on('requestAccepted', (data) => {
       console.log(data)
       dispatch(addSingleFriend(data?.addFriend))
-      dispatch(pushNotification(data?.notifications[0]))
-        
+      dispatch(pushNotification(data?.updateFriend
+        ?.notifications[0]))
+
     })
 
   }, [isConnected, socket])

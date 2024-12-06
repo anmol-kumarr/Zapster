@@ -47,7 +47,7 @@ const ChatBox: React.FC = () => {
             const response = await apiConnector({ method: "GET", url: api })
 
             const { data: { messages, message, ...restOfData } } = response?.data;
-            console.log(response)
+            // console.log(response)
 
 
 

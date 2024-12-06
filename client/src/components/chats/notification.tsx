@@ -2,7 +2,7 @@ import React from 'react'
 import NotificationImage from '../../assets/notification.svg'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../context/store'
-import { FriendRequest } from './notificationBox'
+import { FriendRequest, RequestAccept } from './notificationBox'
 
 
 
@@ -20,16 +20,18 @@ const Notification: React.FC = () => {
 
                     {
                         notification.map((notification) => (
-                            // {
+                            <>
+                                {
 
-                                notification.notificationType === 'Request' && (
-                                    <FriendRequest notification={notification}></FriendRequest>
-                                )
-                            // }
-                            // {
+                                    notification.notificationType === 'Request' && (
+                                        <FriendRequest key={notification._id} notification={notification}></FriendRequest>
+                                    )
+                                }
+                                {
 
-                            //     notification.notificationType === 'Accept'
-                            // }
+                                    notification.notificationType === 'Accept' && (<RequestAccept notification={notification}></RequestAccept>)
+                                }
+                            </>
                             // {
 
                             //     notification.notificationType === 'Group'
