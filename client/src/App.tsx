@@ -19,7 +19,7 @@ import SearchProfile from './components/chats/searchProfile'
 import { useSocket } from './socket/socket'
 import { Dispatch } from 'redux'
 import { useDispatch } from 'react-redux'
-import { addMessage, Message } from './context/chatSlice'
+import { addMessage, addSingleFriend, Message } from './context/chatSlice'
 import ChatBox from './components/chats/chatBox'
 import MobileChatPage from './components/chats/mobileChatPage'
 import { pushNotification } from './context/notifications'
@@ -66,11 +66,23 @@ function App() {
       dispatch(pushNotification(data?.notifications[0]))
     })
 
+    socket?.on('friendAdded', (data) => {
+      console.log(data)
+      dispatch(addSingleFriend(data))
+        
+    })
+    socket?.on('requestAccepted', (data) => {
+      console.log(data)
+      dispatch(addSingleFriend(data?.addFriend))
+      dispatch(pushNotification(data?.notifications[0]))
+        
+    })
+
   }, [isConnected, socket])
 
   const width = useMediaQuery('(min-width: 768px)')
   // useEffect(() => {
-  console.log(width)
+  // console.log(width)
   // },[matches])
 
 

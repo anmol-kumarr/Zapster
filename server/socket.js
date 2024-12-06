@@ -126,6 +126,56 @@ io.on('connection', (socket) => {
         }
     })
 
+    socket.on('acceptRequest', async (data) => {
+        console.log(data)
+        const toSend = connectedUser[data.friendId]
+
+        const createConversation = await Conversation.create({
+            participants: [data?.userId, data?.friendId],
+            messages: []
+        })
+
+
+
+
+        const addFriend = await User.findByIdAndUpdate(data.userId, { $push: { friends: data.friendId }, $pull: { friendRequest: data.friendId } }, { new: true }).select('userName _id fullName profilePicture')
+
+
+        const createNotification = await Notification.create({
+            message: data?.message,
+            userId: data.friendId,
+            notificationType: 'Accept',
+            isSeen: false,
+            userRequested: data.userId
+        })
+
+
+        const updateFriend = await User.findByIdAndUpdate(data.friendId, {
+            $push: { friends: data.userId, notifications: createNotification._id },
+            $pull: { requestSend: data.userId }
+        },
+            { new: true }
+        ).select('userName _id fullName profilePicture').populate({
+            path: 'notifications',
+            populate: {
+                path: 'userRequested',
+                select: 'userName _id fullName profilePicture'
+            },
+            options: { sort: { createdAt: -1 }, limit: 1 }
+        })
+
+        const deleteNotification = await Notification.findByIdAndDelete(data?.notificationId)
+        if (toSend) {
+            io.to(toSend).emit('requestAccepted', { addFriend, updateFriend })
+        }
+
+        
+        const { userName, profilePicture, _id, fullName } = updateFriend;
+        io.to(socket.id).emit('friendAdded',{ userName, profilePicture, _id, fullName})
+
+
+    })
+
 
 
     socket.on('disconnect', () => {
