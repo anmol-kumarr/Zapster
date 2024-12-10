@@ -1,11 +1,12 @@
 import axios, { AxiosRequestHeaders, AxiosResponse } from 'axios'
 
 interface ApiConnectorInterface {
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-    url: string;
-    bodyData?: any;
-    header?: AxiosRequestHeaders;
-    params?: Record<string, any>;
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
+    url: string,
+    bodyData?: any,
+    header?: AxiosRequestHeaders,
+    params?: Record<string, any>,
+    withCredentials?: boolean
 }
 
 export const axiosInstance = axios.create({})
