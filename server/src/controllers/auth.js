@@ -68,7 +68,8 @@ export const SignUp = async (req, res) => {
                 message: "All fields are required"
             })
         }
-
+        console.log('password', password.trim())
+        console.log('confirmPassword', confirmPassword.trim())
         if (password.trim() !== confirmPassword.trim()) {
             return res.status(400).json({
                 success: false,
@@ -176,9 +177,9 @@ export const login = async (req, res) => {
             })
         }
 
-        const isPassword = await bcrypt.compare(password, user.password)
+        const isPassword = await bcrypt.compare(password.trim(), user.password)
 
-        if (!isPassword) {
+        if (isPassword) {
             const payload = {
                 userName: user.userName,
                 email: user.email,

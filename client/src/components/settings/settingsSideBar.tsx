@@ -32,8 +32,8 @@ const SettingsSideBar: React.FC = () => {
         <div className="bg-white h-full">
             <div className="h-full">
                 {
-                    sideBarData.map((link) => (
-                        <div onClick={()=>navigate(`${link.link}`)} className="flex cursor-pointer items-center">
+                    sideBarData.map((link,index) => (
+                        <div key={index} onClick={()=>navigate(`${link.link}`)} className="flex cursor-pointer items-center">
                             {link.icon}
                             {link.text}
                         </div>

@@ -193,11 +193,11 @@ export const Password: React.FC<PasswordProps> = ({ password, confirmPassword, s
 
 
 interface OtpProps {
-    otp: string,
+    otp?: string,
     setDetails: SetDetails
 }
 
-export const Otp: React.FC<OtpProps> = ({ otp, setDetails }) => {
+export const Otp: React.FC<OtpProps> = ({ setDetails }) => {
     const [newOtp, setNewOtp] = useState<string>('')
     useEffect(()=>{
         setDetails(prev=>({...prev,otp:newOtp}))
