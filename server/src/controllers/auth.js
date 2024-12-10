@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 import 'dotenv/config'
 import otpGenerator from 'otp-generator'
 import OTP from "../models/otp.model.js"
-import BlackList from "../models/blacklist.model.js",
+import BlackList from "../models/blacklist.model.js"
 import 'dotenv/config'
 
 
