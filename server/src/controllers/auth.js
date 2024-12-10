@@ -205,7 +205,7 @@ export const login = async (req, res) => {
                 secure: process.env.NODE_ENV === 'production', // Ensure Secure cookies in production (only sent over HTTPS)
                 expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Expires in 7 days
             };
-            return res.cookie('token', token, option).status(200).json({
+            return res.cookie('token', token, options).status(200).json({
                 success: true,
                 message: 'Login successful',
                 user
