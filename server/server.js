@@ -15,7 +15,7 @@ import { app, server } from './socket.js';
 app.use(express.json()) //parse json body from request
 app.use(cookieParser()) // to parse cookie from client
 app.use(cors({
-    origin:'http://localhost:5173',
+    origin:'https://zapster-brown.vercel.app',
     credentials:true
 }))
 server.listen(process.env.PORT || 4001,()=>{
