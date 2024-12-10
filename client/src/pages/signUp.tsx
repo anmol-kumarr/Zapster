@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import signUpImage from '../assets/signUp.svg'
+import signUpImage from '../assets/signup.svg'
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../context/store";
 import { Email, FullName, Gender, Otp, Password, UserName } from "../components/auth/signUpSteps";
