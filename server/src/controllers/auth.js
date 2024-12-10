@@ -156,7 +156,8 @@ export const SignUp = async (req, res) => {
         console.log(err)
         return res.status(500).json({
             success: false,
-            message: "Internal Server Error"
+            message: "Internal Server Error",
+            error: err
         })
     }
 }
@@ -219,7 +220,8 @@ export const login = async (req, res) => {
 
     } catch (err) {
         return res.status(500).json({
-            success: false
+            success: false,
+            error:err
         })
     }
 }
