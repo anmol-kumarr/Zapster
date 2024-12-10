@@ -4,7 +4,7 @@ import apiConnector from "../connector"
 import { NavigateFunction } from "react-router-dom"
 import { Dispatch } from "redux"
 import { addFriends } from "../../context/chatSlice"
-import { addFriendRequest, setData } from "../../context/notifications"
+import {  setData } from "../../context/notifications"
 
 interface GetAllNotificationParaMeter {
     navigate?: NavigateFunction,

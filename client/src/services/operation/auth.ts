@@ -4,7 +4,7 @@ import apiRoutes from "../api"
 import { Dispatch } from "redux"
 import { setProcessIncrease } from "../../context/signUpSlice"
 import { SignUpDetails } from "../../pages/signUp"
-import { Navigate, NavigateFunction, useNavigate } from "react-router-dom"
+import {  NavigateFunction } from "react-router-dom"
 import { setIsAuthenticated } from "../../context/authSlice"
 
 interface CheckUserNameProps {

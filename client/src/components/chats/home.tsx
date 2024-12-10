@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import HomeImage from '../../assets/home.svg'
 const Home = () => {
     

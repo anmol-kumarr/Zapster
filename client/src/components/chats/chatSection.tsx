@@ -6,7 +6,7 @@ import apiConnector from "../../services/connector"
 import apiRoutes from "../../services/api"
 import { useDispatch } from "react-redux"
 import { Dispatch } from "redux"
-import { addConversation, addFriends, Message } from "../../context/chatSlice"
+import {  addFriends } from "../../context/chatSlice"
 import { useSelector } from "react-redux"
 import { RootState } from "../../context/store"
 import ChatBox from "./chatBox"
@@ -31,8 +31,8 @@ const ChatSection = () => {
     const dispatch: Dispatch = useDispatch()
     const { userId } = useParams()
     const [showChat, setShowChat] = useState<boolean>(false)
-    const [messages, setMessages] = useState<Message[]>([])
-    const { conversations } = useSelector((state: RootState) => state.chat)
+    // const [messages, setMessages] = useState<Message[]>([])
+    // const { conversations } = useSelector((state: RootState) => state.chat)
 
 
     const allFriends = useSelector((state: RootState) => state.chat.friends)
@@ -60,7 +60,7 @@ const ChatSection = () => {
 
     useEffect(() => {
         if (allFriends.length === 0) {
-            // getFriends()
+            getFriends()
         }
     }, [])
 

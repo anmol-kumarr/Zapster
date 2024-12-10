@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "./searchBar";
 import SearchImage from '../../assets/search.svg'
-import { useLocation, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import apiConnector from "../../services/connector";
 import apiRoutes from "../../services/api";
@@ -17,7 +17,7 @@ export interface SearchedProfile {
 const SearchSection: React.FC = () => {
 
     const [list, setList] = useState<boolean>(false)
-    const [loading, setLoading] = useState<boolean>(false)
+    // const [loading, setLoading] = useState<boolean>(false)
     const userId = useParams()
     const [searchedProfile, setSearchedProfile] = useState<SearchedProfile | null>(null)
 
@@ -25,7 +25,7 @@ const SearchSection: React.FC = () => {
 
 
     const fetchUserDetails = async () => {
-        setLoading(true)
+        // setLoading(true)
 
         const api = `${apiRoutes.getUserProfile}/${userId.userId}`
         try {

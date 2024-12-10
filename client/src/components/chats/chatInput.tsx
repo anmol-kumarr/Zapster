@@ -1,13 +1,13 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { IoMdSend } from "react-icons/io";
 import { useParams } from "react-router-dom";
 
-import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
-import { RootState } from "../../context/store";
+// import toast from "react-hot-toast";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../../context/store";
 import { useSocket } from "../../socket/socket";
-import { useDispatch } from "react-redux";
-import { Dispatch } from "redux";
+// import { useDispatch } from "react-redux";
+// import { Dispatch } from "redux";
 
 
 // ...existing code...
@@ -16,9 +16,9 @@ const ChatInput: React.FC = () => {
     const [message, setMessage] = useState<string>('');
     const { socket, isConnected } = useSocket();
 
-    const auth = useSelector((state: RootState) => state.auth.user);
+    // const auth = useSelector((state: RootState) => state.auth.user);
     const { userId } = useParams();
-    const dispatch:Dispatch=useDispatch()
+    // const dispatch:Dispatch=useDispatch()
 
 
     

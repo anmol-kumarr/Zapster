@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Welcome from '../assets/welcome.svg'
-import { Link, Navigate, NavigateFunction, useNavigate } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { RootState } from "../context/store";
 import { getAllNotification } from "../services/operation/notification";
 import { useDispatch } from "react-redux";

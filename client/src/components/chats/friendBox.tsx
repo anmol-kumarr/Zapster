@@ -1,7 +1,7 @@
 import React from "react"
 import { SearchProps } from "./searchBar"
-import { NavigateFunction, replace, useNavigate } from "react-router-dom"
-import { Button } from "@mui/material"
+import { NavigateFunction, useNavigate } from "react-router-dom"
+// import { Button } from "@mui/material"
 
 
 

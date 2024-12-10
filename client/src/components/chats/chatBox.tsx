@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ChatInput from "./chatInput";
-import { addConversation, addFriends, addPaginationMessage, Conversation, Message } from "../../context/chatSlice";
+import { addConversation, addFriends, addPaginationMessage, Message } from "../../context/chatSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../context/store";
 import { ReceiveMessage, SendMessage } from "./messageBox";
@@ -10,14 +10,14 @@ import apiRoutes from "../../services/api";
 import apiConnector from "../../services/connector";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "redux";
-import { useMediaQuery } from "usehooks-ts";
+// import { useMediaQuery } from "usehooks-ts";
 
 
 
 
-interface ChatBoxProps {
-    messages: Message[] | null
-}
+// interface ChatBoxProps {
+//     messages: Message[] | null
+// }
 
 
 
@@ -29,10 +29,10 @@ const ChatBox: React.FC = () => {
     const dispatch: Dispatch = useDispatch()
     const allFriends = useSelector((state: RootState) => state.chat.friends)
     const conversationRef = useRef<HTMLDivElement>(null)
-    const width = useMediaQuery('(min-width: 768px)')
-    const [height, setHeight] = useState<number | null>(null)
+    // const width = useMediaQuery('(min-width: 768px)')
+    // const [height, setHeight] = useState<number | null>(null)
     const [page, setPage] = useState<number>(1)
-    const [loading, setLoading] = useState<boolean>(false)
+    // const [loading, setLoading] = useState<boolean>(false)
 
 
     const getConversation = async () => {
@@ -143,7 +143,7 @@ const ChatBox: React.FC = () => {
     }, [conversations, userId])
 
     useEffect(() => {
-        if (conversationRef.current && !loading) {
+        if (conversationRef.current ) {
 
             conversationRef.current.scrollTop = conversationRef.current.scrollHeight
         } 

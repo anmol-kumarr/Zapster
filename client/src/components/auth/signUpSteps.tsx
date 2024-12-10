@@ -1,7 +1,7 @@
-import { Box, FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
+import {  FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material";
 
 import { SignUpDetails } from "../../pages/signUp";
-import { Label } from "@mui/icons-material";
+// import { Label } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 

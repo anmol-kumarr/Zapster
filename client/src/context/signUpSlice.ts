@@ -17,7 +17,8 @@ const initialState: InitialState = {
         password: '',
         confirmPassword: '',
         gender: '',
-        profileImage: ''
+        profileImage: '',
+        otp:''
     }
 }
 

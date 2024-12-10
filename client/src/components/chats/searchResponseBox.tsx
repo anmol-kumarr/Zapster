@@ -15,7 +15,7 @@ import { addOneRequestSend } from "../../context/notifications"
 const SearchResponseBox: React.FC<SearchProps> = ({ profilePicture, fullName, userName, _id }) => {
     console.log(_id)
 
-    const navigate: NavigateFunction = useNavigate()
+    // const navigate: NavigateFunction = useNavigate()
     const { socket, isConnected } = useSocket()
     const userId = useSelector((state: RootState) => state.auth.user?._id)
     const myName = useSelector((state: RootState) => state.auth.user?.userName)

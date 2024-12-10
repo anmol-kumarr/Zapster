@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, {  useState } from "react"
 import LoginImage from '../assets/login.svg'
 import { Button, TextField } from "@mui/material"
 import { Link, NavigateFunction, useNavigate } from "react-router-dom"
-import { emailChecker, passwordChecker } from "../utils/inputChecker"
+import { emailChecker } from "../utils/inputChecker"
 import toast from "react-hot-toast"
 import { handlerLogin } from "../services/operation/auth"
 import { Dispatch } from "redux"

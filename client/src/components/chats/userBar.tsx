@@ -1,10 +1,11 @@
-import { RootState } from "@reduxjs/toolkit/query";
+
 import React, { useEffect, useState } from "react";
 import { IoVideocam } from "react-icons/io5";
 import { MdCall } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Auth } from "../../context/authSlice";
+import { RootState } from "../../context/store";
 
 const UserBar: React.FC = () => {
     const { userId } = useParams()
