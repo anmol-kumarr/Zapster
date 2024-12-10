@@ -138,10 +138,14 @@ export const SignUp = async (req, res) => {
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' })
 
         const option = {
+            // httpOnly: true,
+            // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            // sameSite: 'Lax',
+            // secure: process.env.NODE_ENV === 'production' ? true : false
             httpOnly: true,
-            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-            sameSite: 'Lax',
-            secure: process.env.NODE_ENV === 'production' ? true : false
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "None",
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
         }
         return res.cookie('token', token, option).status(201).json({
             success: true,
