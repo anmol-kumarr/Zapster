@@ -36,7 +36,7 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     useEffect(() => {
         if (user && isAuthenticated) {
 
-            const socketInstance = io("http://localhost:4000",{
+            const socketInstance = io("https://zapster.onrender.com",{
                 query:{
                     userId:user?._id
                 }
