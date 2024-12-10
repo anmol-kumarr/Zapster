@@ -142,10 +142,16 @@ export const SignUp = async (req, res) => {
             // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             // sameSite: 'Lax',
             // secure: process.env.NODE_ENV === 'production' ? true : false
+            // httpOnly: true,
+            // secure: process.env.NODE_ENV === "production",
+            // sameSite: "None",
+            // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "None",
-            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Cross-origin in production
+            secure: process.env.NODE_ENV === 'production', // Ensure Secure cookies in production (only sent over HTTPS)
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Expires in 7 days
+
         }
         return res.cookie('token', token, option).status(201).json({
             success: true,
@@ -197,14 +203,19 @@ export const login = async (req, res) => {
 
             const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' })
 
-            const option = {
+            // const option = {
+            //     httpOnly: true,
+            //     sameSite: 'Lax',
+            //     secure: process.env.NODE_ENV === 'production',
+            //     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            // }
+
+            const options = {
                 httpOnly: true,
-                sameSite: 'Lax',
-                secure: process.env.NODE_ENV === 'production',
-                expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-            }
-
-
+                sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Cross-origin in production
+                secure: process.env.NODE_ENV === 'production', // Ensure Secure cookies in production (only sent over HTTPS)
+                expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Expires in 7 days
+            };
             return res.cookie('token', token, option).status(200).json({
                 success: true,
                 message: 'Login successful',
@@ -300,35 +311,35 @@ export const insertData = async (req, res) => {
         }
         console.log('password', password)
         console.log('confirmPassword', confirmPassword)
-            const emailExists = await User.findOne({ email })
-            if (emailExists) {
-                return res.status(400).json({
-                    success: false,
-                    message: "Email already exists"
-                })
-            }
-
-            const boyPic = `https://avatar.iran.liara.run/public/boy?username=${userName}`
-            const girlPic = `https://avatar.iran.liara.run/public/girl?username=${userName}`
-
-            const hashedPassword = await bcrypt.hash(password, 12)
-
-            const newUser = new User({
-                fullName,
-                userName,
-                password: hashedPassword,
-                gender,
-                email,
-                friends:[],
-                profilePicture: gender === 'Male' ? boyPic : girlPic
+        const emailExists = await User.findOne({ email })
+        if (emailExists) {
+            return res.status(400).json({
+                success: false,
+                message: "Email already exists"
             })
+        }
+
+        const boyPic = `https://avatar.iran.liara.run/public/boy?username=${userName}`
+        const girlPic = `https://avatar.iran.liara.run/public/girl?username=${userName}`
+
+        const hashedPassword = await bcrypt.hash(password, 12)
+
+        const newUser = new User({
+            fullName,
+            userName,
+            password: hashedPassword,
+            gender,
+            email,
+            friends: [],
+            profilePicture: gender === 'Male' ? boyPic : girlPic
+        })
 
 
-            await newUser.save()
+        await newUser.save()
 
-            return res.status(201).json({
-                success:true
-            })
+        return res.status(201).json({
+            success: true
+        })
     } catch (err) {
         console.log(err)
         return res.status(500).json({
