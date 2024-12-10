@@ -13,7 +13,7 @@ export const server = http.createServer(app)
 
 export const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: "https://zapster.vercel.app",
         methods: ["GET", "POST"]
         // ['http://localhost:5173']
 
