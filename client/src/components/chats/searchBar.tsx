@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import fetchUser from "../../services/operation/fetchUser";
-import SearchResponseBox from "./searchResponseBox";
+import SearchResponseBox from "../search/searchResponseBox";
 
 
 export interface SearchProps {

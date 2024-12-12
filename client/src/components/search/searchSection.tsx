@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import SearchBar from "./searchBar";
+import SearchBar from "../chats/searchBar";
 import SearchImage from '../../assets/search.svg'
 import {  useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import apiConnector from "../../services/connector";
 import apiRoutes from "../../services/api";
-import SearchedProfileSection from "./searchedProfileSection";
+import SearchedProfileSection from "./searchFromList";
 
 export interface SearchedProfile {
     _id: string,

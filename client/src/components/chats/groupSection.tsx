@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../context/store";
 import FriendBox from "./friendBox";
-import SearchFromList from "./searchFromList";
+import SearchFromList from "../search/searchFromList";
 import { useMediaQuery } from "usehooks-ts";
 
 
