@@ -5,7 +5,7 @@ import {  useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import apiConnector from "../../services/connector";
 import apiRoutes from "../../services/api";
-import SearchedProfileSection from "./searchFromList";
+import SearchedProfileSection from "./searchedProfileSection";
 
 export interface SearchedProfile {
     _id: string,

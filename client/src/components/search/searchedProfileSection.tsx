@@ -4,7 +4,7 @@ import { Button } from "@mui/material"
 import { CiLock } from "react-icons/ci"
 
 interface SearchProfileSectionProps {
-    searchedProfile: SearchedProfile |null
+    searchedProfile: SearchedProfile | null
 }
 
 const SearchedProfileSection: React.FC<SearchProfileSectionProps> = ({ searchedProfile }) => {
