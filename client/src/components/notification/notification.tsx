@@ -2,7 +2,7 @@ import React from 'react'
 import NotificationImage from '../../assets/notification.svg'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../context/store'
-import { FriendRequest, RequestAccept } from './notificationBox'
+import { FriendRequest, RequestAccept } from "./notificationBox"
 
 
 

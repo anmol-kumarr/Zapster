@@ -1,5 +1,5 @@
 import React from "react"
-import { SearchProps } from "./searchBar"
+import { SearchProps } from "../chats/searchBar"
 // import { NavigateFunction, useNavigate } from "react-router-dom"
 import { Button } from "@mui/material"
 import { useSocket } from "../../socket/socket"

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import SideBar from "../components/chats/sideBar"
+import SideBar from "../components/base/sideBar"
 import { Outlet } from "react-router-dom"
 // import GroupSection from "../components/chats/groupSection"
 import { useSelector } from "react-redux"
@@ -22,7 +22,7 @@ const ChatPage: React.FC = () => {
 
 
     return (
-        <div className="flex   md:bg-bgBlue items-center md:h-screen">
+        <div className="flex font-mono   md:bg-bgBlue items-center md:h-screen">
 
 
 

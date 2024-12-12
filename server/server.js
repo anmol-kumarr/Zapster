@@ -25,8 +25,6 @@ server.listen(process.env.PORT || 4001,()=>{
 
 
 
-
-
 app.use('/api/v1/auth',authRoutes)
 app.use('/api/v1/message',messageRoutes)
 app.use('/api/v1/user',userRoutes)
