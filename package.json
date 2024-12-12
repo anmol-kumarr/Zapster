@@ -5,6 +5,6 @@
   "scripts": {
     "server": "cd server && npm run dev",
     "frontend":"cd client && npm run dev",
-    "dev":"concurrently -n \"frontend,server\" --prefix-colors \"bgBlue,bgYellow\" \"npm run frontend\" \"npm run server\""
+    "dev":"concurrently -n \"frontend,server\" --prefix-colors \"bgGreen,bgRed\" \"npm run frontend\" \"npm run server\""
   }
 }
