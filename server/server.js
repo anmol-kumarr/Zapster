@@ -1,7 +1,7 @@
 import express from 'express';
 import 'dotenv/config'
 import dbConnect from './src/config/dbConnect.js';
-import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 import messageRoutes from './src/routes/message.routes.js'
