@@ -1,6 +1,6 @@
 import { io, Socket } from "socket.io-client";
 
-const SOCKET_URL = "http://localhost:4000"; // Backend URL
+const SOCKET_URL = "https://zapster.onrender.com"; // Backend URL
 
 // Define the event types for strict typing
 interface ServerToClientEvents {

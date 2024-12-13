@@ -17,7 +17,7 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 
     useEffect(() => {
         // Initialize the socket connection
-        const socketInstance = io(import.meta.env.VITE_SOCKET_URL || "http://localhost:4000", {
+        const socketInstance = io(import.meta.env.VITE_SOCKET_URL || "https://zapster.onrender.com", {
             autoConnect: false, // Manual connection
         });
 

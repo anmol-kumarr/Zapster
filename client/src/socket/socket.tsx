@@ -4,6 +4,8 @@ import { ClientToServerEvents, ServerToClientEvents } from "./socketEvents";
 import { useSelector } from "react-redux";
 import { RootState } from "../context/store";
 
+const socketLink:string=import.meta.env.VITE_SOCKET_URL  
+
 interface SocketContextType {
     socket: Socket<ServerToClientEvents, ClientToServerEvents> | null;
     isConnected: boolean;
@@ -36,7 +38,7 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     useEffect(() => {
         if (user && isAuthenticated) {
 
-            const socketInstance = io("http://localhost:4000",{
+            const socketInstance = io(socketLink,{
                 query:{
                     userId:user?._id
                 }

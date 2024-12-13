@@ -29,11 +29,12 @@ const ChatBox: React.FC = () => {
     const dispatch: Dispatch = useDispatch()
     const allFriends = useSelector((state: RootState) => state.chat.friends)
     const conversationRef = useRef<HTMLDivElement>(null)
-    // const width = useMediaQuery('(min-width: 768px)')
-    // const [height, setHeight] = useState<number | null>(null)
-    const [page, setPage] = useState<number>(1)
-    // const [loading, setLoading] = useState<boolean>(false)
 
+    const [page, setPage] = useState<number>(1)
+
+    useEffect(() => {
+        console.log(page)
+    }, [page])
 
     const getConversation = async () => {
         toast.loading('Loading')
@@ -143,10 +144,10 @@ const ChatBox: React.FC = () => {
     }, [conversations, userId])
 
     useEffect(() => {
-        if (conversationRef.current ) {
+        if (conversationRef.current) {
 
             conversationRef.current.scrollTop = conversationRef.current.scrollHeight
-        } 
+        }
 
 
 
@@ -190,27 +191,6 @@ const ChatBox: React.FC = () => {
             }
         }
     }, [conversations])
-
-    // useEffect(() => {
-    //     if (width) {
-    //         setHeight(window.outerHeight)
-    //         const element = document.getElementById('chatSection') as HTMLDivElement | null
-    //         if (element) {
-
-    //             element.style.height = `${window.innerHeight - 4 * 302}px`
-    //         } else {
-
-    //         }
-    //     }
-    // }, [])
-
-
-
-
-    // console.log(window.innerHeight)
-    // console.log(window.outerHeight)
-    // alert(window.outerHeight)
-
 
 
 

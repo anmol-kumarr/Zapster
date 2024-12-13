@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SearchBar from "./searchBar";
+import SearchBar from "../chats/searchBar";
 import SearchImage from '../../assets/search.svg'
 import {  useParams } from "react-router-dom";
 import toast from "react-hot-toast";

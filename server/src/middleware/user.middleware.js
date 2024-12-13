@@ -1,4 +1,6 @@
 import jwt from 'jsonwebtoken'
+import 'dotenv/config'
+
 
 const UserMiddleware=async(req,res,next)=>{
     try{
@@ -10,6 +12,8 @@ const UserMiddleware=async(req,res,next)=>{
                 message:'Unauthorized access'
             })
         }
+        // console.log()
+        // console.log(process.env.JWT_SECRET)
         const decode=jwt.verify(token,process.env.JWT_SECRET)
 
 
