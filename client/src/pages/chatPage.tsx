@@ -9,10 +9,15 @@ import { Dispatch } from "redux"
 import { useDispatch } from "react-redux"
 
 const ChatPage: React.FC = () => {
+
     // const location = useLocation().pathname.split('/')
     const { isAuthenticated } = useSelector((state: RootState) => state.auth)
+
     const notification = useSelector((state: RootState) => state.notification)
+
     const dispatch: Dispatch = useDispatch()
+
+    
     useEffect(() => {
         if (isAuthenticated && notification.notification.length === 0) {
             getAllNotification({ dispatch })
