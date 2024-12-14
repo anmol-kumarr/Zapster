@@ -5,6 +5,7 @@ import Message from './src/models/message.model.js'
 import Conversation from './src/models/conversation.model.js'
 import Notification from './src/models/notification.model.js'
 import User from './src/models/user.model.js'
+import 'dotenv/config'
 
 
 export const app = express()
@@ -13,8 +14,8 @@ export const server = http.createServer(app)
 
 export const io = new Server(server, {
     cors: {
-        // origin: "https://zapster-brown.vercel.app",
-        origin:'http://localhost:5173',
+        origin: process.env.WEb_APP_URL,
+        // origin:'http://localhost:5173',
         methods: ["GET", "POST"]
         // ['http://localhost:5173']
 
