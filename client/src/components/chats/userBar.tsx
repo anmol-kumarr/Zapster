@@ -30,13 +30,13 @@ const UserBar: React.FC = () => {
         <div className="flex bg-themeBlue w-full text-white md:rounded-md justify-between py-2 px-4 items-center">
             <div className="flex w-full gap-2 items-center">
 
-                <div className="overflow-hidden h-10 w-10 rounded-full">
+                <div className="overflow-hidden h-12 w-12 rounded-full">
                     <img className="w-full h-full" src={user?.profilePicture} alt="" />
                 </div>
 
                 <div>
-                    <h3 className="text-sm">{user?.fullName}</h3>
-                    <p className="text-xs">{user?.userName}</p>
+                    <h3 className="text-base">{user?.fullName}</h3>
+                    <p className="text-sm">{user?.userName}</p>
                 </div>
             </div>
             <div className="flex items-center gap-3 text-2xl">

@@ -62,7 +62,8 @@ const ChatBox: React.FC = () => {
             // setPage(page => page + 1)
 
             toast.dismiss()
-            console.log(page)
+            console.log('page', page)
+            // console.log(page)
             if (page > 1) {
                 // setLoading(true)
                 dispatch(addPaginationMessage({ messages, ...restOfData, friendId: userId, meta: response?.data?.meta }))
@@ -82,6 +83,7 @@ const ChatBox: React.FC = () => {
         }
     }
     useEffect(() => {
+        console.log(userId, page)
         if (page > 1) {
             getConversation()
             // setLoading(false)
@@ -115,12 +117,14 @@ const ChatBox: React.FC = () => {
 
 
     useEffect(() => {
+        
         if (userId && allFriends.length <= 0) {
             getFriends()
         }
 
         if (userId) {
             // const friend=
+
 
             const conversationAvail = conversations.filter((conversation) => conversation.friendId === userId)
 
@@ -136,6 +140,9 @@ const ChatBox: React.FC = () => {
     }, [userId])
 
     useEffect(() => {
+
+        
+        setPage(1)
         const conversationAvail = conversations.filter((conversation) => conversation.friendId === userId)
         setMessages(conversationAvail[0]?.messages)
 
@@ -165,18 +172,15 @@ const ChatBox: React.FC = () => {
 
                 if (ref.scrollTop === 0) {
                     const findPage = conversations.filter((conversation) => conversation.friendId === userId)[0]
-                    console.log('hello')
-                    console.log(findPage)
-                    if (findPage && findPage.meta && findPage?.meta?.totalPages > findPage?.meta?.currentPage) {
-                        setPage(prev => {
-                            const nextPage = prev + 1;
-                            return nextPage
-                        })
+                    // console.log('hello')
 
+                    if (findPage && findPage?.meta && findPage?.meta?.totalPages > findPage?.meta?.currentPage) {
+                        setPage(findPage?.meta?.currentPage + 1)
                         console.log('hello2')
 
 
                     }
+                    console.log('not')
                 }
 
             }
@@ -195,8 +199,8 @@ const ChatBox: React.FC = () => {
 
 
     return (
-        <div className="relative flex w-full pb-2 flex-col justify-between rounded-md h-[calc(100vh-10rem)] md:h-[calc(100vh-5rem)]" >
-            <div id="chatSection" ref={conversationRef} className={`overflow-y-scroll  w-full  p-2`}>
+        <div className="relative flex w-full md:pb-4 flex-col justify-between rounded-md h-[calc(100vh-10rem)] md:h-[calc(100vh-5rem)]" >
+            <div id="chatSection" ref={conversationRef} className={`overflow-y-scroll  w-full md:my-2 mb-5  p-2`}>
                 {
 
 
@@ -210,7 +214,7 @@ const ChatBox: React.FC = () => {
                     ))
                 }
             </div>
-            <div className="fixed left-0 right-0 bottom-12 md:relative md:bottom-0 md:left-0 md:right-0   md:bg-transparent bg-white md:shadow-[1px_0px_5px_#e2ccff] w-full">
+            <div className="fixed  left-0 right-0 bottom-12 md:relative md:bottom-0 md:left-0 md:right-0   md:bg-transparent bg-white md:shadow-[1px_0px_5px_#e2ccff] w-full">
 
                 <ChatInput></ChatInput>
             </div>

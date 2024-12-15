@@ -40,7 +40,7 @@ const ChatInput: React.FC = () => {
 
     return (
         <form onSubmit={handleSubmit} action="">
-            <div className="md:w-11/12 md:p-0 p-1 my-3 mx-auto flex md:gap-3 gap-1">
+            <div className="md:w-11/12 md:p-0 p-1 md:my-2 mx-auto my-1 flex md:gap-3 gap-1">
                 <div className="w-full overflow-hidden">
                     <input
                         className="bg-bgBlue py-3 w-full border-[1.5px] rounded-xl border-bor outline-none md:py-2 px-5 font-inter"

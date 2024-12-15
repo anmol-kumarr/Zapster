@@ -9,13 +9,13 @@ const FriendBox: React.FC<SearchProps> = ({ profilePicture, fullName, userName, 
 
     const navigate: NavigateFunction = useNavigate()
     return (
-        <div onClick={() => navigate(`/user/chat/${_id}`,{replace:true})} className="cursor-pointer flex gap-2 px-3 py-2 items-center  w-full">
-            <div className="h-10 w-10 rounded-full">
+        <div onClick={() => navigate(`/user/chat/${_id}`,{replace:true})} className="font-sans cursor-pointer flex gap-2 sm:px-3 sm:py-2 py-4 px-3 items-center  w-full">
+            <div className="h-11 w-11 rounded-full">
                 <img className="h-full w-full" src={profilePicture} alt="" />
             </div>
             <div>
-                <p className="font-inter text-sm">{userName}</p>
-                <p className="font-inter text-xs text-textBlack ">{fullName}</p>
+                <p className="font-inter text-base">{userName}</p>
+                <p className="font-inter text-sm text-textBlack ">{fullName}</p>
             </div>
         
         </div>
