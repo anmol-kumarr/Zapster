@@ -201,8 +201,8 @@ export const login = async (req, res) => {
 
             const options = {
                 httpOnly: true,
-                // sameSite: 'None',
-                sameSite:'lax',
+                sameSite: 'None',
+                // sameSite:'lax',
                 secure: process.env.NODE_ENV === 'production', // Ensure Secure cookies in production (only sent over HTTPS)
                 expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Expires in 7 days
             };

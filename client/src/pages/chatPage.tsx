@@ -27,7 +27,7 @@ const ChatPage: React.FC = () => {
 
 
     return (
-        <div className="flex font-mono   md:bg-bgBlue items-center md:h-screen">
+        <div className="flex font-sans   md:bg-bgBlue items-center md:h-screen">
 
 
 

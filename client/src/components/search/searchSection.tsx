@@ -57,7 +57,7 @@ const SearchSection: React.FC = () => {
                 </div>
                 <div className="flex h-[calc(100vh-10rem)] mt-10 w-full border-r border-gray-200  justify-center items-center">
                     {
-                        !list && <h3 className="font-bold font-inter text-textBlack">Search user and make new friends</h3>
+                        !list && <h3 className="font-bold font-inter text-xl text-textBlack">Search user and make new friends</h3>
                     }
                 </div>
             </div>

@@ -12,7 +12,8 @@ interface Api {
     getUserProfile: string,
     getFriends: string,
     getConversation:string,
-    getAllRequestAndNotification:string
+    getAllRequestAndNotification:string,
+    logout:string
 }
 
 
@@ -30,7 +31,8 @@ const apiRoutes: Api = {
 
 
     getConversation:VITE_BASE_URL+'/message',
-    getAllRequestAndNotification:VITE_BASE_URL+'/notification/getNotifications'
+    getAllRequestAndNotification:VITE_BASE_URL+'/notification/getNotifications',
+    logout:VITE_BASE_URL+'/auth/logout'
 
 }
 
