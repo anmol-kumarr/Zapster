@@ -1,5 +1,3 @@
-
-
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Login from './pages/login'
@@ -9,7 +7,7 @@ import ChatPage from './pages/chatPage'
 import Home from './components/home/home'
 import ChatSection from './components/chats/chatSection'
 import Notification from './components/notification/notification'
-import Setting from './components/settings/setting'
+// import Setting from './components/settings/setting'
 import HomePage from './pages/homePage'
 import { useEffect } from 'react'
 import CloseRoute from './routes/closeRoute'
@@ -23,6 +21,7 @@ import { addMessage, addSingleFriend } from './context/chatSlice'
 // import ChatBox from './components/chats/chatBox'
 import MobileChatPage from './components/chats/mobileChatPage'
 import { pushNotification } from './context/notifications'
+import Modal from './components/base/modal'
 
 interface AuthValue {
   userName: string,
@@ -92,7 +91,7 @@ function App() {
 
 
   return (
-    <div>
+    <div className='relative'>
       <Routes>
         <Route path='/'
           element={
@@ -165,10 +164,10 @@ function App() {
             element={<Notification></Notification>}
           ></Route>
 
-          <Route
+          {/* <Route
             path='setting'
             element={<Setting></Setting>}
-          ></Route>
+          ></Route> */}
 
           <Route
             path='search'>
@@ -186,6 +185,9 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      <div>
+        <Modal></Modal>
+      </div>
     </div>
   )
 }

@@ -4,8 +4,8 @@ import apiRoutes from "../api"
 import { Dispatch } from "redux"
 import { setProcessIncrease } from "../../context/signUpSlice"
 import { SignUpDetails } from "../../pages/signUp"
-import {  NavigateFunction } from "react-router-dom"
-import { setIsAuthenticated } from "../../context/authSlice"
+import { NavigateFunction } from "react-router-dom"
+import { setIsAuthenticated, setLogout, setModal } from "../../context/authSlice"
 
 interface CheckUserNameProps {
     dispatch: Dispatch,
@@ -132,5 +132,23 @@ export const handlerLogin = async ({ email, password, navigate, dispatch }: Logi
         console.log(err)
         toast.dismiss()
         toast.error('Login failed')
+    }
+}
+
+
+interface LogoutProps {
+    dispatch: Dispatch
+}
+
+export const logoutHandler = async ({ dispatch }: LogoutProps) => {
+    try {
+        const api = apiRoutes.logout
+        await apiConnector({ method: 'POST', url: api })
+        localStorage.removeItem('zapster')
+        toast.success('Logged out')
+        dispatch(setModal())
+        dispatch(setLogout())
+    } catch (err) {
+        console.log(err)   
     }
 }

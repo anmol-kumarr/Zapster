@@ -23,5 +23,5 @@ createRoot(document.getElementById('root')!).render(
 
       </SocketProvider>
     </Provider>
-  </StrictMode>,
+  </StrictMode>
 )
